@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fHome));
             this.fLayoutTable = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.numUD_FoodCount = new System.Windows.Forms.NumericUpDown();
@@ -41,9 +42,8 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnPay = new System.Windows.Forms.Button();
-            this.btnMoveTable = new System.Windows.Forms.Button();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnBooking = new System.Windows.Forms.Button();
             this.tBoxTotalPrice = new System.Windows.Forms.TextBox();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.btnDiscount = new System.Windows.Forms.Button();
@@ -54,7 +54,6 @@
             this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUD_FoodCount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -63,6 +62,7 @@
             // fLayoutTable
             // 
             this.fLayoutTable.AutoScroll = true;
+            this.fLayoutTable.BackColor = System.Drawing.SystemColors.Control;
             this.fLayoutTable.Location = new System.Drawing.Point(12, 31);
             this.fLayoutTable.Name = "fLayoutTable";
             this.fLayoutTable.Padding = new System.Windows.Forms.Padding(5);
@@ -100,6 +100,8 @@
             // 
             // cbBoxFood
             // 
+            this.cbBoxFood.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbBoxFood.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbBoxFood.FormattingEnabled = true;
             this.cbBoxFood.Location = new System.Drawing.Point(125, 37);
             this.cbBoxFood.Name = "cbBoxFood";
@@ -108,6 +110,8 @@
             // 
             // cbCategory
             // 
+            this.cbCategory.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.cbCategory.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbCategory.FormattingEnabled = true;
             this.cbCategory.Location = new System.Drawing.Point(125, 7);
             this.cbCategory.Name = "cbCategory";
@@ -124,7 +128,7 @@
             this.lblCurrentTable.Name = "lblCurrentTable";
             this.lblCurrentTable.Size = new System.Drawing.Size(116, 60);
             this.lblCurrentTable.TabIndex = 3;
-            this.lblCurrentTable.Text = "Bàn 2";
+            this.lblCurrentTable.Text = "Tên bàn";
             this.lblCurrentTable.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnAddFood
@@ -186,35 +190,27 @@
             this.btnPay.UseVisualStyleBackColor = true;
             this.btnPay.Click += new System.EventHandler(this.btnPay_Click);
             // 
-            // btnMoveTable
-            // 
-            this.btnMoveTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMoveTable.Location = new System.Drawing.Point(3, 10);
-            this.btnMoveTable.Name = "btnMoveTable";
-            this.btnMoveTable.Size = new System.Drawing.Size(110, 30);
-            this.btnMoveTable.TabIndex = 4;
-            this.btnMoveTable.Text = "Chuyển bàn";
-            this.btnMoveTable.UseVisualStyleBackColor = true;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(3, 46);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(110, 22);
-            this.numericUpDown1.TabIndex = 5;
-            // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnBooking);
             this.panel2.Controls.Add(this.tBoxTotalPrice);
             this.panel2.Controls.Add(this.numericUpDown3);
             this.panel2.Controls.Add(this.btnDiscount);
-            this.panel2.Controls.Add(this.numericUpDown1);
             this.panel2.Controls.Add(this.btnPay);
-            this.panel2.Controls.Add(this.btnMoveTable);
             this.panel2.Location = new System.Drawing.Point(578, 541);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(592, 75);
             this.panel2.TabIndex = 3;
+            // 
+            // btnBooking
+            // 
+            this.btnBooking.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBooking.Location = new System.Drawing.Point(6, 10);
+            this.btnBooking.Name = "btnBooking";
+            this.btnBooking.Size = new System.Drawing.Size(117, 60);
+            this.btnBooking.TabIndex = 9;
+            this.btnBooking.Text = "Đặt bàn";
+            this.btnBooking.UseVisualStyleBackColor = true;
             // 
             // tBoxTotalPrice
             // 
@@ -260,6 +256,7 @@
             // 
             // adminToolStripMenuItem
             // 
+            this.adminToolStripMenuItem.Enabled = false;
             this.adminToolStripMenuItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.adminToolStripMenuItem.Name = "adminToolStripMenuItem";
             this.adminToolStripMenuItem.Size = new System.Drawing.Size(63, 22);
@@ -288,6 +285,7 @@
             this.đăngXuấtToolStripMenuItem.Name = "đăngXuấtToolStripMenuItem";
             this.đăngXuấtToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
             this.đăngXuấtToolStripMenuItem.Text = "Đăng xuất";
+            this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click);
             // 
             // fHome
             // 
@@ -299,12 +297,12 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.fLayoutTable);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "fHome";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Quản lý quán";
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numUD_FoodCount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
@@ -319,8 +317,6 @@
 
         private System.Windows.Forms.FlowLayoutPanel fLayoutTable;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Button btnMoveTable;
         private System.Windows.Forms.Label lblCurrentTable;
         private System.Windows.Forms.Button btnPay;
         private System.Windows.Forms.Button btnAddFood;
@@ -341,6 +337,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.TextBox tBoxTotalPrice;
+        private System.Windows.Forms.Button btnBooking;
     }
 }
 

@@ -34,14 +34,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.tBoxDisplayName = new System.Windows.Forms.TextBox();
+            this.tBoxOldPass = new System.Windows.Forms.TextBox();
+            this.tBoxNewPass = new System.Windows.Forms.TextBox();
+            this.tBoxReNewPass = new System.Windows.Forms.TextBox();
+            this.tBoxUserName = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnOut = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -68,7 +69,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 188);
+            this.label3.Location = new System.Drawing.Point(12, 245);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 20);
             this.label3.TabIndex = 2;
@@ -78,11 +79,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(35, 221);
+            this.label4.Location = new System.Drawing.Point(35, 179);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(96, 20);
+            this.label4.Size = new System.Drawing.Size(142, 20);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Mật khẩu cũ";
+            this.label4.Text = "Xác thực mật khẩu";
             // 
             // label5
             // 
@@ -104,40 +105,45 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "Nhập lại mật khẩu";
             // 
-            // textBox1
+            // tBoxDisplayName
             // 
-            this.textBox1.Location = new System.Drawing.Point(39, 77);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(250, 22);
-            this.textBox1.TabIndex = 6;
+            this.tBoxDisplayName.Enabled = false;
+            this.tBoxDisplayName.Location = new System.Drawing.Point(39, 77);
+            this.tBoxDisplayName.Name = "tBoxDisplayName";
+            this.tBoxDisplayName.Size = new System.Drawing.Size(250, 22);
+            this.tBoxDisplayName.TabIndex = 6;
             // 
-            // textBox2
+            // tBoxOldPass
             // 
-            this.textBox2.Location = new System.Drawing.Point(39, 244);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(250, 22);
-            this.textBox2.TabIndex = 7;
+            this.tBoxOldPass.Enabled = false;
+            this.tBoxOldPass.Location = new System.Drawing.Point(39, 202);
+            this.tBoxOldPass.Name = "tBoxOldPass";
+            this.tBoxOldPass.Size = new System.Drawing.Size(250, 22);
+            this.tBoxOldPass.TabIndex = 7;
             // 
-            // textBox3
+            // tBoxNewPass
             // 
-            this.textBox3.Location = new System.Drawing.Point(39, 302);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(250, 22);
-            this.textBox3.TabIndex = 8;
+            this.tBoxNewPass.Enabled = false;
+            this.tBoxNewPass.Location = new System.Drawing.Point(39, 302);
+            this.tBoxNewPass.Name = "tBoxNewPass";
+            this.tBoxNewPass.Size = new System.Drawing.Size(250, 22);
+            this.tBoxNewPass.TabIndex = 8;
             // 
-            // textBox4
+            // tBoxReNewPass
             // 
-            this.textBox4.Location = new System.Drawing.Point(39, 363);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(250, 22);
-            this.textBox4.TabIndex = 9;
+            this.tBoxReNewPass.Enabled = false;
+            this.tBoxReNewPass.Location = new System.Drawing.Point(39, 363);
+            this.tBoxReNewPass.Name = "tBoxReNewPass";
+            this.tBoxReNewPass.Size = new System.Drawing.Size(250, 22);
+            this.tBoxReNewPass.TabIndex = 9;
             // 
-            // textBox5
+            // tBoxUserName
             // 
-            this.textBox5.Location = new System.Drawing.Point(39, 138);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(250, 22);
-            this.textBox5.TabIndex = 10;
+            this.tBoxUserName.Enabled = false;
+            this.tBoxUserName.Location = new System.Drawing.Point(39, 138);
+            this.tBoxUserName.Name = "tBoxUserName";
+            this.tBoxUserName.Size = new System.Drawing.Size(250, 22);
+            this.tBoxUserName.TabIndex = 10;
             // 
             // label7
             // 
@@ -151,23 +157,38 @@
             // 
             // btnUpdate
             // 
+            this.btnUpdate.Enabled = false;
             this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate.Location = new System.Drawing.Point(121, 424);
+            this.btnUpdate.Location = new System.Drawing.Point(189, 424);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(100, 50);
             this.btnUpdate.TabIndex = 12;
             this.btnUpdate.Text = "Cập nhật";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnOut
             // 
+            this.btnOut.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOut.Location = new System.Drawing.Point(239, 424);
+            this.btnOut.Location = new System.Drawing.Point(304, 424);
             this.btnOut.Name = "btnOut";
             this.btnOut.Size = new System.Drawing.Size(100, 50);
             this.btnOut.TabIndex = 13;
             this.btnOut.Text = "Thoát";
             this.btnOut.UseVisualStyleBackColor = true;
+            this.btnOut.Click += new System.EventHandler(this.btnOut_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEdit.Location = new System.Drawing.Point(12, 424);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(159, 50);
+            this.btnEdit.TabIndex = 14;
+            this.btnEdit.Text = "Thay đổi thông tin";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // fAccInfo
             // 
@@ -175,15 +196,16 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnOut;
-            this.ClientSize = new System.Drawing.Size(362, 493);
+            this.ClientSize = new System.Drawing.Size(461, 493);
+            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnOut);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tBoxUserName);
+            this.Controls.Add(this.tBoxReNewPass);
+            this.Controls.Add(this.tBoxNewPass);
+            this.Controls.Add(this.tBoxOldPass);
+            this.Controls.Add(this.tBoxDisplayName);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -192,7 +214,7 @@
             this.Controls.Add(this.label1);
             this.Name = "fAccInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "fAccInfo";
+            this.Text = "Thông tin tài khoản";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,13 +228,14 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox tBoxDisplayName;
+        private System.Windows.Forms.TextBox tBoxOldPass;
+        private System.Windows.Forms.TextBox tBoxNewPass;
+        private System.Windows.Forms.TextBox tBoxReNewPass;
+        private System.Windows.Forms.TextBox tBoxUserName;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnOut;
+        private System.Windows.Forms.Button btnEdit;
     }
 }

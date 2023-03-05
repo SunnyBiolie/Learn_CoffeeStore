@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fAdmin));
             this.tabCAdmin = new System.Windows.Forms.TabControl();
             this.tabBill = new System.Windows.Forms.TabPage();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.btnStatistical = new System.Windows.Forms.Button();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtPickerToDate = new System.Windows.Forms.DateTimePicker();
+            this.dtPickerFromDate = new System.Windows.Forms.DateTimePicker();
             this.panel5 = new System.Windows.Forms.Panel();
             this.dtGVBill = new System.Windows.Forms.DataGridView();
             this.tabFood = new System.Windows.Forms.TabPage();
@@ -112,6 +112,7 @@
             this.btnAddAcc = new System.Windows.Forms.Button();
             this.panel27 = new System.Windows.Forms.Panel();
             this.dtGVAcc = new System.Windows.Forms.DataGridView();
+            this.csBtnStatistical = new CoffeeStore.csControls.csButton();
             this.tabCAdmin.SuspendLayout();
             this.tabBill.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -161,6 +162,7 @@
             this.tabCAdmin.Controls.Add(this.tabTable);
             this.tabCAdmin.Controls.Add(this.tabAcc);
             this.tabCAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabCAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabCAdmin.Location = new System.Drawing.Point(0, 0);
             this.tabCAdmin.Name = "tabCAdmin";
             this.tabCAdmin.SelectedIndex = 0;
@@ -171,48 +173,38 @@
             // 
             this.tabBill.Controls.Add(this.panel6);
             this.tabBill.Controls.Add(this.panel5);
-            this.tabBill.Location = new System.Drawing.Point(4, 25);
+            this.tabBill.Location = new System.Drawing.Point(4, 27);
             this.tabBill.Name = "tabBill";
             this.tabBill.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBill.Size = new System.Drawing.Size(974, 524);
+            this.tabBill.Size = new System.Drawing.Size(974, 522);
             this.tabBill.TabIndex = 0;
             this.tabBill.Text = "DoanhThu";
             this.tabBill.UseVisualStyleBackColor = true;
             // 
             // panel6
             // 
-            this.panel6.Controls.Add(this.btnStatistical);
-            this.panel6.Controls.Add(this.dateTimePicker2);
-            this.panel6.Controls.Add(this.dateTimePicker1);
+            this.panel6.Controls.Add(this.csBtnStatistical);
+            this.panel6.Controls.Add(this.dtPickerToDate);
+            this.panel6.Controls.Add(this.dtPickerFromDate);
             this.panel6.Location = new System.Drawing.Point(6, 6);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(962, 35);
             this.panel6.TabIndex = 1;
             // 
-            // btnStatistical
+            // dtPickerToDate
             // 
-            this.btnStatistical.Location = new System.Drawing.Point(723, 4);
-            this.btnStatistical.Name = "btnStatistical";
-            this.btnStatistical.Size = new System.Drawing.Size(116, 25);
-            this.btnStatistical.TabIndex = 2;
-            this.btnStatistical.Text = "Thống kê";
-            this.btnStatistical.UseVisualStyleBackColor = true;
+            this.dtPickerToDate.Location = new System.Drawing.Point(477, 6);
+            this.dtPickerToDate.Name = "dtPickerToDate";
+            this.dtPickerToDate.Size = new System.Drawing.Size(267, 24);
+            this.dtPickerToDate.TabIndex = 1;
             // 
-            // dateTimePicker2
+            // dtPickerFromDate
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(400, 3);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(249, 22);
-            this.dateTimePicker2.TabIndex = 1;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.CustomFormat = "dd MMMM yyyy";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(3, 4);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(252, 22);
-            this.dateTimePicker1.TabIndex = 0;
+            this.dtPickerFromDate.CustomFormat = "dd MMMM yyyy";
+            this.dtPickerFromDate.Location = new System.Drawing.Point(109, 6);
+            this.dtPickerFromDate.Name = "dtPickerFromDate";
+            this.dtPickerFromDate.Size = new System.Drawing.Size(268, 24);
+            this.dtPickerFromDate.TabIndex = 0;
             // 
             // panel5
             // 
@@ -224,6 +216,7 @@
             // 
             // dtGVBill
             // 
+            this.dtGVBill.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtGVBill.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGVBill.Location = new System.Drawing.Point(3, 3);
             this.dtGVBill.Name = "dtGVBill";
@@ -238,10 +231,10 @@
             this.tabFood.Controls.Add(this.panel3);
             this.tabFood.Controls.Add(this.panel2);
             this.tabFood.Controls.Add(this.panel1);
-            this.tabFood.Location = new System.Drawing.Point(4, 25);
+            this.tabFood.Location = new System.Drawing.Point(4, 27);
             this.tabFood.Name = "tabFood";
             this.tabFood.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFood.Size = new System.Drawing.Size(974, 524);
+            this.tabFood.Size = new System.Drawing.Size(974, 522);
             this.tabFood.TabIndex = 1;
             this.tabFood.Text = "Thực đơn";
             this.tabFood.UseVisualStyleBackColor = true;
@@ -259,7 +252,7 @@
             // 
             this.tBoxFindFood.Location = new System.Drawing.Point(3, 17);
             this.tBoxFindFood.Name = "tBoxFindFood";
-            this.tBoxFindFood.Size = new System.Drawing.Size(302, 22);
+            this.tBoxFindFood.Size = new System.Drawing.Size(302, 24);
             this.tBoxFindFood.TabIndex = 5;
             // 
             // btnFindFood
@@ -300,7 +293,7 @@
             0,
             0});
             this.nudFoodPrice.Name = "nudFoodPrice";
-            this.nudFoodPrice.Size = new System.Drawing.Size(205, 22);
+            this.nudFoodPrice.Size = new System.Drawing.Size(205, 24);
             this.nudFoodPrice.TabIndex = 1;
             // 
             // label4
@@ -327,7 +320,7 @@
             this.cBoxFoodCategory.FormattingEnabled = true;
             this.cBoxFoodCategory.Location = new System.Drawing.Point(187, 12);
             this.cBoxFoodCategory.Name = "cBoxFoodCategory";
-            this.cBoxFoodCategory.Size = new System.Drawing.Size(205, 24);
+            this.cBoxFoodCategory.Size = new System.Drawing.Size(205, 26);
             this.cBoxFoodCategory.TabIndex = 1;
             // 
             // label3
@@ -353,7 +346,7 @@
             // 
             this.tBoxFoodName.Location = new System.Drawing.Point(187, 10);
             this.tBoxFoodName.Name = "tBoxFoodName";
-            this.tBoxFoodName.Size = new System.Drawing.Size(205, 22);
+            this.tBoxFoodName.Size = new System.Drawing.Size(205, 24);
             this.tBoxFoodName.TabIndex = 1;
             // 
             // label2
@@ -379,8 +372,9 @@
             // 
             this.tBoxFoodID.Location = new System.Drawing.Point(187, 10);
             this.tBoxFoodID.Name = "tBoxFoodID";
-            this.tBoxFoodID.Size = new System.Drawing.Size(205, 22);
+            this.tBoxFoodID.Size = new System.Drawing.Size(205, 24);
             this.tBoxFoodID.TabIndex = 1;
+            this.tBoxFoodID.TextChanged += new System.EventHandler(this.tBoxFoodID_TextChanged);
             // 
             // label1
             // 
@@ -411,6 +405,7 @@
             this.btnViewFood.TabIndex = 3;
             this.btnViewFood.Text = "Xem";
             this.btnViewFood.UseVisualStyleBackColor = true;
+            this.btnViewFood.Click += new System.EventHandler(this.btnViewFood_Click);
             // 
             // btnAdjustFood
             // 
@@ -462,10 +457,10 @@
             this.tabCategory.Controls.Add(this.panel12);
             this.tabCategory.Controls.Add(this.panel17);
             this.tabCategory.Controls.Add(this.panel18);
-            this.tabCategory.Location = new System.Drawing.Point(4, 25);
+            this.tabCategory.Location = new System.Drawing.Point(4, 27);
             this.tabCategory.Name = "tabCategory";
             this.tabCategory.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCategory.Size = new System.Drawing.Size(974, 524);
+            this.tabCategory.Size = new System.Drawing.Size(974, 522);
             this.tabCategory.TabIndex = 2;
             this.tabCategory.Text = "Danh mục";
             this.tabCategory.UseVisualStyleBackColor = true;
@@ -492,7 +487,7 @@
             // 
             this.textBox2.Location = new System.Drawing.Point(187, 10);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(205, 22);
+            this.textBox2.Size = new System.Drawing.Size(205, 24);
             this.textBox2.TabIndex = 1;
             // 
             // label7
@@ -518,7 +513,7 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(187, 10);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(205, 22);
+            this.textBox3.Size = new System.Drawing.Size(205, 24);
             this.textBox3.TabIndex = 1;
             // 
             // label8
@@ -601,10 +596,10 @@
             this.tabTable.Controls.Add(this.panel11);
             this.tabTable.Controls.Add(this.panel19);
             this.tabTable.Controls.Add(this.panel20);
-            this.tabTable.Location = new System.Drawing.Point(4, 25);
+            this.tabTable.Location = new System.Drawing.Point(4, 27);
             this.tabTable.Name = "tabTable";
             this.tabTable.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTable.Size = new System.Drawing.Size(974, 524);
+            this.tabTable.Size = new System.Drawing.Size(974, 522);
             this.tabTable.TabIndex = 3;
             this.tabTable.Text = "Bàn ăn";
             this.tabTable.UseVisualStyleBackColor = true;
@@ -633,7 +628,7 @@
             this.cBoxTableStatus.FormattingEnabled = true;
             this.cBoxTableStatus.Location = new System.Drawing.Point(187, 12);
             this.cBoxTableStatus.Name = "cBoxTableStatus";
-            this.cBoxTableStatus.Size = new System.Drawing.Size(205, 24);
+            this.cBoxTableStatus.Size = new System.Drawing.Size(205, 26);
             this.cBoxTableStatus.TabIndex = 1;
             // 
             // label9
@@ -659,7 +654,7 @@
             // 
             this.tBoxTableName.Location = new System.Drawing.Point(187, 10);
             this.tBoxTableName.Name = "tBoxTableName";
-            this.tBoxTableName.Size = new System.Drawing.Size(205, 22);
+            this.tBoxTableName.Size = new System.Drawing.Size(205, 24);
             this.tBoxTableName.TabIndex = 1;
             // 
             // label5
@@ -685,7 +680,7 @@
             // 
             this.tBoxTableID.Location = new System.Drawing.Point(187, 10);
             this.tBoxTableID.Name = "tBoxTableID";
-            this.tBoxTableID.Size = new System.Drawing.Size(205, 22);
+            this.tBoxTableID.Size = new System.Drawing.Size(205, 24);
             this.tBoxTableID.TabIndex = 1;
             // 
             // label6
@@ -768,10 +763,10 @@
             this.tabAcc.Controls.Add(this.panel22);
             this.tabAcc.Controls.Add(this.panel26);
             this.tabAcc.Controls.Add(this.panel27);
-            this.tabAcc.Location = new System.Drawing.Point(4, 25);
+            this.tabAcc.Location = new System.Drawing.Point(4, 27);
             this.tabAcc.Name = "tabAcc";
             this.tabAcc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAcc.Size = new System.Drawing.Size(974, 524);
+            this.tabAcc.Size = new System.Drawing.Size(974, 522);
             this.tabAcc.TabIndex = 4;
             this.tabAcc.Text = "Tài khoản";
             this.tabAcc.UseVisualStyleBackColor = true;
@@ -810,7 +805,7 @@
             this.cBoxTypeAcc.FormattingEnabled = true;
             this.cBoxTypeAcc.Location = new System.Drawing.Point(187, 12);
             this.cBoxTypeAcc.Name = "cBoxTypeAcc";
-            this.cBoxTypeAcc.Size = new System.Drawing.Size(205, 24);
+            this.cBoxTypeAcc.Size = new System.Drawing.Size(205, 26);
             this.cBoxTypeAcc.TabIndex = 1;
             // 
             // label10
@@ -836,7 +831,7 @@
             // 
             this.tBoxDisplayName.Location = new System.Drawing.Point(187, 10);
             this.tBoxDisplayName.Name = "tBoxDisplayName";
-            this.tBoxDisplayName.Size = new System.Drawing.Size(205, 22);
+            this.tBoxDisplayName.Size = new System.Drawing.Size(205, 24);
             this.tBoxDisplayName.TabIndex = 1;
             // 
             // label11
@@ -862,7 +857,7 @@
             // 
             this.tBoxUserName.Location = new System.Drawing.Point(187, 10);
             this.tBoxUserName.Name = "tBoxUserName";
-            this.tBoxUserName.Size = new System.Drawing.Size(205, 22);
+            this.tBoxUserName.Size = new System.Drawing.Size(205, 24);
             this.tBoxUserName.TabIndex = 1;
             // 
             // label12
@@ -932,6 +927,7 @@
             // 
             // dtGVAcc
             // 
+            this.dtGVAcc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtGVAcc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtGVAcc.Location = new System.Drawing.Point(3, 3);
             this.dtGVAcc.Name = "dtGVAcc";
@@ -940,15 +936,35 @@
             this.dtGVAcc.Size = new System.Drawing.Size(549, 444);
             this.dtGVAcc.TabIndex = 0;
             // 
+            // csBtnStatistical
+            // 
+            this.csBtnStatistical.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.csBtnStatistical.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.csBtnStatistical.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.csBtnStatistical.BorderRadius = 0;
+            this.csBtnStatistical.BorderSize = 0;
+            this.csBtnStatistical.FlatAppearance.BorderSize = 0;
+            this.csBtnStatistical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.csBtnStatistical.ForeColor = System.Drawing.Color.Ivory;
+            this.csBtnStatistical.Location = new System.Drawing.Point(778, -3);
+            this.csBtnStatistical.Name = "csBtnStatistical";
+            this.csBtnStatistical.Size = new System.Drawing.Size(150, 40);
+            this.csBtnStatistical.TabIndex = 1;
+            this.csBtnStatistical.Text = "Thống kê";
+            this.csBtnStatistical.TextColor = System.Drawing.Color.Ivory;
+            this.csBtnStatistical.UseVisualStyleBackColor = false;
+            this.csBtnStatistical.Click += new System.EventHandler(this.csBtnStatistical_Click);
+            // 
             // fAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(982, 553);
             this.Controls.Add(this.tabCAdmin);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "fAdmin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "fAdmin";
+            this.Text = "Cửa sổ quản lý";
             this.tabCAdmin.ResumeLayout(false);
             this.tabBill.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
@@ -1022,9 +1038,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dtGVFood;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Button btnStatistical;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtPickerToDate;
+        private System.Windows.Forms.DateTimePicker dtPickerFromDate;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.DataGridView dtGVBill;
         private System.Windows.Forms.Panel panel10;
@@ -1091,5 +1106,6 @@
         private System.Windows.Forms.Panel panel27;
         private System.Windows.Forms.DataGridView dtGVAcc;
         private System.Windows.Forms.Button btnResetPass;
+        private csControls.csButton csBtnStatistical;
     }
 }

@@ -37,5 +37,20 @@ namespace CoffeeStore.DAO
 
             return list;
         }
+
+        public Category GetCategoryByID(int id)
+        {
+            Category category = null;
+
+            string query = $"select * from DanhMuc where ID = {id}";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+
+            foreach (DataRow row in data.Rows)
+            {
+                category = new Category(row);
+            }
+
+            return category;
+        }
     }
 }

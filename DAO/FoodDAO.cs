@@ -37,5 +37,21 @@ namespace CoffeeStore.DAO
 
             return list;
         }
+
+        public List<Food> GetListFoods()
+        {
+            List<Food> list = new List<Food>();
+
+            string query = "select TenMon, TenDM, GiaMonAn\r\nfrom MonAn as ma, DanhMuc as dm\r\nwhere dm.ID = ma.idDM";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+
+            foreach (DataRow row in data.Rows)
+            {
+                Food food = new Food(row);
+                list.Add(food);
+            }
+
+            return list;
+        }
     }
 }

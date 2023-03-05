@@ -16,12 +16,34 @@ namespace CoffeeStore
 {
     public partial class fHome : Form
     {
-        public fHome()
+        private CultureInfo GE_Culture = new CultureInfo("de-DE");
+
+        private Account accLogined;
+
+        public Account AccLogined
+        {
+            get => accLogined;
+            set
+            {
+                accLogined = value;
+                Decentralization(accLogined.Type);
+            }
+        }
+
+        public fHome(Account accLogined)
         {
             InitializeComponent();
 
+            AccLogined = accLogined;
+
             LoadTables();
             LoadCategory();
+        }
+
+        private void Decentralization(int accType)
+        {
+            if (accType == 1 ) adminToolStripMenuItem.Enabled = true;
+            thôngTinToolStripMenuItem.Text += $" ({AccLogined.DisplayName})";
         }
 
         private void LoadCategory()
@@ -64,8 +86,8 @@ namespace CoffeeStore
                         btn.BackgroundColor = Color.FromArgb(164, 171, 182);
                         break;
                     case "Có khách":
-                        btn.TextColor = Color.FromArgb(0, 0, 0);
-                        btn.BackgroundColor = Color.FromArgb(45, 204, 255);
+                        btn.TextColor = Color.White;
+                        btn.BackgroundColor = Color.MediumSlateBlue;
                         break;
                 }
 
@@ -73,6 +95,24 @@ namespace CoffeeStore
             }
         }
 
+        /// <summary>
+        /// Load lại đúng button thể hiện bàn đã chọn
+        /// </summary>
+        private void ReloadTable()
+        {
+            DataTable data = DataProvider.Instance.ExecuteQuery($"select TrangThai from Ban where ID = {(lViewBill.Tag as Table).Id}");
+            (lblCurrentTable.Tag as csButton).Text = (lViewBill.Tag as Table).Name + Environment.NewLine + data.Rows[0][0].ToString();
+            switch (data.Rows[0][0].ToString())
+            {
+                case "Trống":
+                    (lblCurrentTable.Tag as csButton).BackgroundColor = Color.FromArgb(164, 171, 182);
+                    break;
+                case "Có khách":
+                    (lblCurrentTable.Tag as csButton).TextColor = Color.White;
+                    (lblCurrentTable.Tag as csButton).BackgroundColor = Color.MediumSlateBlue;
+                    break;
+            }
+        }
         private void ShowBill(int tableID)
         {
             lViewBill.Items.Clear();
@@ -90,8 +130,8 @@ namespace CoffeeStore
             {
                 ListViewItem listViewItem = new ListViewItem(item.FoodName.ToString());
                 listViewItem.SubItems.Add(item.FoodCount.ToString());
-                listViewItem.SubItems.Add(item.FoodPrice.ToString("#,#"));
-                listViewItem.SubItems.Add(item.TotalPrice.ToString("#,#"));
+                listViewItem.SubItems.Add(item.FoodPrice.ToString("#,#", GE_Culture));
+                listViewItem.SubItems.Add(item.TotalPrice.ToString("#,#", GE_Culture));
 
                 totalBill += item.TotalPrice;
 
@@ -110,16 +150,11 @@ namespace CoffeeStore
             //int tableID = tbltemp.Id;
             int tableID = ((sender as Button).Tag as Table).Id;
             lblCurrentTable.Text = ((sender as Button).Tag as Table).Name;
-            // Dùng lblCurrentTable.Tag lưu trữ bàn đang được select 
-            lblCurrentTable.Tag = (sender as Button).Tag;
+            // Dùng lViewBill.Tag lưu trữ bàn đang được select 
+            lblCurrentTable.Tag = (sender as csButton);
+            lViewBill.Tag = (sender as csButton).Tag;
 
             ShowBill(tableID);
-        }
-
-        private void thôngTinCáNhânToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            fAccInfo fAccInfo = new fAccInfo();
-            fAccInfo.ShowDialog();
         }
 
         private void adminToolStripMenuItem_Click(object sender, EventArgs e)
@@ -140,7 +175,7 @@ namespace CoffeeStore
 
         private void btnAddFood_Click(object sender, EventArgs e)
         {
-            Table table = lblCurrentTable.Tag as Table;
+            Table table = lViewBill.Tag as Table;
             int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(table.Id);
             int idFood = (cbBoxFood.SelectedItem as Food).Id;
             int foodCount = (int)numUD_FoodCount.Value;
@@ -157,24 +192,47 @@ namespace CoffeeStore
             }
 
             ShowBill(table.Id);
-            LoadTables();
+            ReloadTable();
         }
-        #endregion
 
         private void btnPay_Click(object sender, EventArgs e)
         {
-            Table curTable = lblCurrentTable.Tag as Table;
-            int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(curTable.Id);
-            if (idBill != -1)
+            if (lViewBill.Tag != null)
             {
-                if (MessageBox.Show($"Bạn có chắc muốn thanh toán hóa đơn của bàn {curTable.Name}", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
-                {
-                    BillDAO.Instance.CheckOut(idBill);
-                    ShowBill(idBill);
-                }
-            }
+                Table curTable = lViewBill.Tag as Table;
+                int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(curTable.Id);
 
-            LoadTables();
+                float totalPrice = Convert.ToSingle(tBoxTotalPrice.Text.Split(',')[0], GE_Culture);
+
+                if (idBill != -1)
+                {
+                    if (MessageBox.Show($"Bạn có chắc muốn thanh toán hóa đơn của {curTable.Name}\nTổng hóa đơn là {totalPrice.ToString("#,#", GE_Culture)} VNĐ", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        BillDAO.Instance.CheckOut(idBill, totalPrice);
+                        ShowBill(idBill);
+                    }
+                }
+
+                ReloadTable();
+            }
+            else return;
         }
+
+        private void thôngTinCáNhânToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fAccInfo fAccInfo = new fAccInfo(AccLogined);
+            fAccInfo.UpdateInfo += fAccInfo_UpdateInfo;
+            fAccInfo.ShowDialog();
+        }
+        private void fAccInfo_UpdateInfo(object sender, AccountEvent e)
+        {
+            thôngTinToolStripMenuItem.Text = $"Thông tin ({e.Account.DisplayName})";
+        }
+
+        private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        #endregion
     }
 }

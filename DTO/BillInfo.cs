@@ -31,7 +31,7 @@ namespace CoffeeStore.DTO
             billInfoID = (int)row["ID"];
             this.billID = (int)row["idHoaDon"];
             this.foodID = (int)row["idMonAn"];
-            this.foodCount = (int)row["SoMon"];
+            this.foodCount = (int)row["SoLuong"];
         }
     }
 }

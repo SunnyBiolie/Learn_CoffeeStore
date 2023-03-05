@@ -28,7 +28,7 @@ namespace CoffeeStore.DTO
         public InterfaceBillInfo(DataRow row)
         {
             this.foodName = row["TenMon"].ToString();
-            this.foodCount = (int)row["SoMon"];
+            this.foodCount = (int)row["SoLuong"];
             this.foodPrice = Convert.ToSingle(row["GiaMonAn"].ToString());
             this.totalPrice = Convert.ToSingle(row["ThanhTien"].ToString()); ;
         }

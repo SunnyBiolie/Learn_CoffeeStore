@@ -54,10 +54,15 @@ namespace CoffeeStore.DAO
         {
             return (int)DataProvider.Instance.ExecuteScalar("select max(ID) from HoaDon");
         }
-        public void CheckOut(int idBill)
+        public void CheckOut(int idBill, float totalPrice)
         {
-            string query = $"update HoaDon set TrangThai = 1 where ID = {idBill}";
+            string query = $"update HoaDon set ThoiGianRa = GETDATE(), TrangThai = 1, TongTien = {totalPrice} where ID = {idBill}";
             DataProvider.Instance.ExecuteNonQuery(query);
+        }
+
+        public DataTable GetListBillByDate(DateTime dateCheckIn, DateTime dateCheckOut)
+        {
+            return DataProvider.Instance.ExecuteQuery("exec USP_GetListBillByDate @NgayVao , @NgayRa", new object[] {dateCheckIn, dateCheckOut});
         }
     }
 }

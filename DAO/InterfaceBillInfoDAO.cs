@@ -26,7 +26,7 @@ namespace CoffeeStore.DAO
         {
             List<InterfaceBillInfo> listMenu = new List<InterfaceBillInfo>();
 
-            string query = $"select fd.TenMon, ctb.SoMon, fd.GiaMonAn, fd.GiaMonAn*ctb.SoMon as ThanhTien from ChiTietHoaDon as ctb, HoaDon as b, MonAn as fd\r\nwhere ctb.idHoaDon = b.ID and ctb.idMonAn = fd.ID and b.idBan = {tableID} and b.TrangThai = 0";
+            string query = $"select fd.TenMon, ctb.SoLuong, fd.GiaMonAn, fd.GiaMonAn*ctb.SoLuong as ThanhTien from ChiTietHoaDon as ctb, HoaDon as b, MonAn as fd\r\nwhere ctb.idHoaDon = b.ID and ctb.idMonAn = fd.ID and b.idBan = {tableID} and b.TrangThai = 0";
             DataTable data = DataProvider.Instance.ExecuteQuery(query);
 
             foreach (DataRow row in data.Rows)

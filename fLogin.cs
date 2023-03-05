@@ -1,4 +1,5 @@
 ﻿using CoffeeStore.DAO;
+using CoffeeStore.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,10 +25,11 @@ namespace CoffeeStore
             string pass = tBoxPass.Text;
             if (isMember(userName, pass))
             {
+                Account accLogined = AccountDAO.Instance.GetAccByUserName(userName);
                 this.Hide();
-                fHome fHome = new fHome();
+                fHome fHome = new fHome(accLogined);
                 fHome.ShowDialog();
-                this.Close();
+                this.Show();
             }
             else MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu");
         }
@@ -35,7 +37,6 @@ namespace CoffeeStore
         bool isMember(string userName, string pass)
         {
             return AccountDAO.Instance.Login(userName, pass);
-
         }
     }
 }
