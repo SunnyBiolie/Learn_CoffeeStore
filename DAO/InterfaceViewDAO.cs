@@ -38,4 +38,35 @@ namespace CoffeeStore.DAO
             return listMenu;
         }
     }
+    public class InterfaceFoodInfoDAO
+    {
+        private static InterfaceFoodInfoDAO instance;
+        public static InterfaceFoodInfoDAO Instance
+        {
+            get
+            {
+                if (instance == null) instance= new InterfaceFoodInfoDAO();
+                return InterfaceFoodInfoDAO.instance;
+            }
+            private set => instance = value;
+        }
+
+        private InterfaceFoodInfoDAO() { }
+
+        public List<InterfaceFoodInfo> GetListInterfaceFoodInfo()
+        {
+            List<InterfaceFoodInfo> list = new List<InterfaceFoodInfo>();
+
+            string query = "select ma.ID, TenMon, TenDM, GiaMonAn\r\nfrom MonAn as ma, DanhMuc as dm\r\nwhere dm.ID = ma.idDM";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+
+            foreach(DataRow row in data.Rows)
+            {
+                InterfaceFoodInfo line = new InterfaceFoodInfo(row);
+                list.Add(line);
+            }
+
+            return list;
+        }
+    }
 }

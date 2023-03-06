@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,12 @@ namespace CoffeeStore.DAO
         {
             string query = "USP_InsertBillInfo @idHoaDon , @idMonAn , @SoLuong";
             DataProvider.Instance.ExecuteNonQuery(query, new object[] { idBill, idFood, foodCount });
+        }
+
+        public void DeleteBillInfoByFoodID(int foodID)
+        {
+            string query = $"delete ChiTietHoaDon where idMonAn = {foodID}";
+            DataProvider.Instance.ExecuteNonQuery(query);
         }
     }
 }

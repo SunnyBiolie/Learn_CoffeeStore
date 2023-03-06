@@ -160,7 +160,35 @@ namespace CoffeeStore
         private void adminToolStripMenuItem_Click(object sender, EventArgs e)
         {
             fAdmin fAdmin = new fAdmin();
+            fAdmin.InsertFood += fAdmin_InsertFood;
+            fAdmin.EditFood += fAdmin_EditFood;
+            fAdmin.DeleteFood += fAdmin_DeleteFood;
             fAdmin.ShowDialog();
+        }
+        /// <summary>
+        /// Sự kiện được gọi sau khi thêm món thành công ở fAdmin
+        /// Hàm được thực hiện khi sự kiện được gọi, đồng bộ giao diện hiển thị vs dữ liệu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void fAdmin_InsertFood(object sender, EventArgs e)
+        {
+            LoadFoodListByCategoryID((cbCategory.SelectedItem as Category).Id);
+            if (lViewBill.Tag != null)
+                ShowBill((lViewBill.Tag as Table).Id);
+        }
+        private void fAdmin_EditFood(object sender, EventArgs e)
+        {
+            LoadFoodListByCategoryID((cbCategory.SelectedItem as Category).Id);
+            if (lViewBill.Tag != null)
+                ShowBill((lViewBill.Tag as Table).Id);
+            LoadTables();
+        }
+        private void fAdmin_DeleteFood(object sender, EventArgs e)
+        {
+            LoadFoodListByCategoryID((cbCategory.SelectedItem as Category).Id);
+            if (lViewBill.Tag != null)
+                ShowBill((lViewBill.Tag as Table).Id);
         }
 
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -176,6 +204,11 @@ namespace CoffeeStore
         private void btnAddFood_Click(object sender, EventArgs e)
         {
             Table table = lViewBill.Tag as Table;
+            if (table == null)
+            {
+                MessageBox.Show("Vui lòng chọn bàn trước khi thêm món", "Thông báo");
+                return;
+            }
             int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(table.Id);
             int idFood = (cbBoxFood.SelectedItem as Food).Id;
             int foodCount = (int)numUD_FoodCount.Value;

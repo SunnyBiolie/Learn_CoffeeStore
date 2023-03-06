@@ -42,7 +42,7 @@ namespace CoffeeStore.DAO
         {
             List<Food> list = new List<Food>();
 
-            string query = "select TenMon, TenDM, GiaMonAn\r\nfrom MonAn as ma, DanhMuc as dm\r\nwhere dm.ID = ma.idDM";
+            string query = "select * from MonAn";
             DataTable data = DataProvider.Instance.ExecuteQuery(query);
 
             foreach (DataRow row in data.Rows)
@@ -52,6 +52,32 @@ namespace CoffeeStore.DAO
             }
 
             return list;
+        }
+
+        public bool InsertFood(string foodName, int categoryID, float foodPrice)
+        {
+            string query = $"insert MonAn (TenMon, idDM, GiaMonAn) values (N'{foodName}', {categoryID}, {foodPrice})";
+            int result = DataProvider.Instance.ExecuteNonQuery(query);
+
+            return result > 0;
+        }
+
+        public bool EditFoodInfo(string foodName, int categoryID, float foodPrice, int foodID)
+        {
+            string query = $"update MonAn set TenMon = N'{foodName}', idDM = {categoryID}, GiaMonAn = {foodPrice} where ID = {foodID}";
+            int result = DataProvider.Instance.ExecuteNonQuery(query);
+
+            return result > 0;
+        }
+
+        public bool DeleteFood(int foodID)
+        {
+            BillInfoDAO.Instance.DeleteBillInfoByFoodID(foodID);
+
+            string query = $"Delete MonAn where ID = {foodID}";
+            int result = DataProvider.Instance.ExecuteNonQuery(query);
+
+            return result > 0;
         }
     }
 }

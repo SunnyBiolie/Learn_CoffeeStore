@@ -31,7 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fAdmin));
             this.tabCAdmin = new System.Windows.Forms.TabControl();
             this.tabBill = new System.Windows.Forms.TabPage();
+            this.panel28 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.csBtnStatistical = new CoffeeStore.csControls.csButton();
             this.dtPickerToDate = new System.Windows.Forms.DateTimePicker();
             this.dtPickerFromDate = new System.Windows.Forms.DateTimePicker();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -47,17 +49,17 @@
             this.panel9 = new System.Windows.Forms.Panel();
             this.cBoxFoodCategory = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnViewFood = new System.Windows.Forms.Button();
+            this.btnAddFood = new System.Windows.Forms.Button();
+            this.btnRemoveFood = new System.Windows.Forms.Button();
+            this.btnEditFood = new System.Windows.Forms.Button();
             this.panel8 = new System.Windows.Forms.Panel();
             this.tBoxFoodName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.tBoxFoodID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnViewFood = new System.Windows.Forms.Button();
-            this.btnAdjustFood = new System.Windows.Forms.Button();
-            this.btnRemoveFood = new System.Windows.Forms.Button();
-            this.btnAddFood = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dtGVFood = new System.Windows.Forms.DataGridView();
             this.tabCategory = new System.Windows.Forms.TabPage();
@@ -112,7 +114,6 @@
             this.btnAddAcc = new System.Windows.Forms.Button();
             this.panel27 = new System.Windows.Forms.Panel();
             this.dtGVAcc = new System.Windows.Forms.DataGridView();
-            this.csBtnStatistical = new CoffeeStore.csControls.csButton();
             this.tabCAdmin.SuspendLayout();
             this.tabBill.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -124,9 +125,9 @@
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudFoodPrice)).BeginInit();
             this.panel9.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtGVFood)).BeginInit();
             this.tabCategory.SuspendLayout();
@@ -171,6 +172,7 @@
             // 
             // tabBill
             // 
+            this.tabBill.Controls.Add(this.panel28);
             this.tabBill.Controls.Add(this.panel6);
             this.tabBill.Controls.Add(this.panel5);
             this.tabBill.Location = new System.Drawing.Point(4, 27);
@@ -180,6 +182,13 @@
             this.tabBill.TabIndex = 0;
             this.tabBill.Text = "DoanhThu";
             this.tabBill.UseVisualStyleBackColor = true;
+            // 
+            // panel28
+            // 
+            this.panel28.Location = new System.Drawing.Point(686, 47);
+            this.panel28.Name = "panel28";
+            this.panel28.Size = new System.Drawing.Size(282, 469);
+            this.panel28.TabIndex = 2;
             // 
             // panel6
             // 
@@ -191,19 +200,38 @@
             this.panel6.Size = new System.Drawing.Size(962, 35);
             this.panel6.TabIndex = 1;
             // 
+            // csBtnStatistical
+            // 
+            this.csBtnStatistical.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.csBtnStatistical.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.csBtnStatistical.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.csBtnStatistical.BorderRadius = 0;
+            this.csBtnStatistical.BorderSize = 0;
+            this.csBtnStatistical.FlatAppearance.BorderSize = 0;
+            this.csBtnStatistical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.csBtnStatistical.ForeColor = System.Drawing.Color.Ivory;
+            this.csBtnStatistical.Location = new System.Drawing.Point(755, -3);
+            this.csBtnStatistical.Name = "csBtnStatistical";
+            this.csBtnStatistical.Size = new System.Drawing.Size(150, 40);
+            this.csBtnStatistical.TabIndex = 1;
+            this.csBtnStatistical.Text = "Thống kê";
+            this.csBtnStatistical.TextColor = System.Drawing.Color.Ivory;
+            this.csBtnStatistical.UseVisualStyleBackColor = false;
+            this.csBtnStatistical.Click += new System.EventHandler(this.csBtnStatistical_Click);
+            // 
             // dtPickerToDate
             // 
-            this.dtPickerToDate.Location = new System.Drawing.Point(477, 6);
+            this.dtPickerToDate.Location = new System.Drawing.Point(277, 6);
             this.dtPickerToDate.Name = "dtPickerToDate";
-            this.dtPickerToDate.Size = new System.Drawing.Size(267, 24);
+            this.dtPickerToDate.Size = new System.Drawing.Size(265, 24);
             this.dtPickerToDate.TabIndex = 1;
             // 
             // dtPickerFromDate
             // 
             this.dtPickerFromDate.CustomFormat = "dd MMMM yyyy";
-            this.dtPickerFromDate.Location = new System.Drawing.Point(109, 6);
+            this.dtPickerFromDate.Location = new System.Drawing.Point(3, 6);
             this.dtPickerFromDate.Name = "dtPickerFromDate";
-            this.dtPickerFromDate.Size = new System.Drawing.Size(268, 24);
+            this.dtPickerFromDate.Size = new System.Drawing.Size(265, 24);
             this.dtPickerFromDate.TabIndex = 0;
             // 
             // panel5
@@ -211,7 +239,7 @@
             this.panel5.Controls.Add(this.dtGVBill);
             this.panel5.Location = new System.Drawing.Point(6, 47);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(962, 471);
+            this.panel5.Size = new System.Drawing.Size(681, 471);
             this.panel5.TabIndex = 0;
             // 
             // dtGVBill
@@ -222,14 +250,13 @@
             this.dtGVBill.Name = "dtGVBill";
             this.dtGVBill.RowHeadersWidth = 51;
             this.dtGVBill.RowTemplate.Height = 24;
-            this.dtGVBill.Size = new System.Drawing.Size(956, 465);
+            this.dtGVBill.Size = new System.Drawing.Size(671, 465);
             this.dtGVBill.TabIndex = 0;
             // 
             // tabFood
             // 
             this.tabFood.Controls.Add(this.panel4);
             this.tabFood.Controls.Add(this.panel3);
-            this.tabFood.Controls.Add(this.panel2);
             this.tabFood.Controls.Add(this.panel1);
             this.tabFood.Location = new System.Drawing.Point(4, 27);
             this.tabFood.Name = "tabFood";
@@ -268,6 +295,7 @@
             // 
             this.panel3.Controls.Add(this.panel10);
             this.panel3.Controls.Add(this.panel9);
+            this.panel3.Controls.Add(this.panel2);
             this.panel3.Controls.Add(this.panel8);
             this.panel3.Controls.Add(this.panel7);
             this.panel3.Location = new System.Drawing.Point(567, 68);
@@ -333,6 +361,57 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Danh mục";
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btnViewFood);
+            this.panel2.Controls.Add(this.btnAddFood);
+            this.panel2.Controls.Add(this.btnRemoveFood);
+            this.panel2.Controls.Add(this.btnEditFood);
+            this.panel2.Location = new System.Drawing.Point(3, 199);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(385, 56);
+            this.panel2.TabIndex = 9;
+            // 
+            // btnViewFood
+            // 
+            this.btnViewFood.Location = new System.Drawing.Point(282, 3);
+            this.btnViewFood.Name = "btnViewFood";
+            this.btnViewFood.Size = new System.Drawing.Size(87, 50);
+            this.btnViewFood.TabIndex = 3;
+            this.btnViewFood.Text = "Xem";
+            this.btnViewFood.UseVisualStyleBackColor = true;
+            this.btnViewFood.Click += new System.EventHandler(this.btnViewFood_Click);
+            // 
+            // btnAddFood
+            // 
+            this.btnAddFood.Location = new System.Drawing.Point(3, 3);
+            this.btnAddFood.Name = "btnAddFood";
+            this.btnAddFood.Size = new System.Drawing.Size(87, 50);
+            this.btnAddFood.TabIndex = 0;
+            this.btnAddFood.Text = "Thêm";
+            this.btnAddFood.UseVisualStyleBackColor = true;
+            this.btnAddFood.Click += new System.EventHandler(this.btnAddFood_Click);
+            // 
+            // btnRemoveFood
+            // 
+            this.btnRemoveFood.Location = new System.Drawing.Point(96, 3);
+            this.btnRemoveFood.Name = "btnRemoveFood";
+            this.btnRemoveFood.Size = new System.Drawing.Size(87, 50);
+            this.btnRemoveFood.TabIndex = 1;
+            this.btnRemoveFood.Text = "Xóa";
+            this.btnRemoveFood.UseVisualStyleBackColor = true;
+            this.btnRemoveFood.Click += new System.EventHandler(this.btnRemoveFood_Click);
+            // 
+            // btnEditFood
+            // 
+            this.btnEditFood.Location = new System.Drawing.Point(189, 3);
+            this.btnEditFood.Name = "btnEditFood";
+            this.btnEditFood.Size = new System.Drawing.Size(87, 50);
+            this.btnEditFood.TabIndex = 2;
+            this.btnEditFood.Text = "Sửa";
+            this.btnEditFood.UseVisualStyleBackColor = true;
+            this.btnEditFood.Click += new System.EventHandler(this.btnEditFood_Click);
+            // 
             // panel8
             // 
             this.panel8.Controls.Add(this.tBoxFoodName);
@@ -372,6 +451,7 @@
             // 
             this.tBoxFoodID.Location = new System.Drawing.Point(187, 10);
             this.tBoxFoodID.Name = "tBoxFoodID";
+            this.tBoxFoodID.ReadOnly = true;
             this.tBoxFoodID.Size = new System.Drawing.Size(205, 24);
             this.tBoxFoodID.TabIndex = 1;
             this.tBoxFoodID.TextChanged += new System.EventHandler(this.tBoxFoodID_TextChanged);
@@ -386,70 +466,24 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "ID";
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.btnViewFood);
-            this.panel2.Controls.Add(this.btnAdjustFood);
-            this.panel2.Controls.Add(this.btnRemoveFood);
-            this.panel2.Controls.Add(this.btnAddFood);
-            this.panel2.Location = new System.Drawing.Point(6, 6);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(555, 56);
-            this.panel2.TabIndex = 9;
-            // 
-            // btnViewFood
-            // 
-            this.btnViewFood.Location = new System.Drawing.Point(340, 3);
-            this.btnViewFood.Name = "btnViewFood";
-            this.btnViewFood.Size = new System.Drawing.Size(87, 50);
-            this.btnViewFood.TabIndex = 3;
-            this.btnViewFood.Text = "Xem";
-            this.btnViewFood.UseVisualStyleBackColor = true;
-            this.btnViewFood.Click += new System.EventHandler(this.btnViewFood_Click);
-            // 
-            // btnAdjustFood
-            // 
-            this.btnAdjustFood.Location = new System.Drawing.Point(224, 3);
-            this.btnAdjustFood.Name = "btnAdjustFood";
-            this.btnAdjustFood.Size = new System.Drawing.Size(87, 50);
-            this.btnAdjustFood.TabIndex = 2;
-            this.btnAdjustFood.Text = "Sửa";
-            this.btnAdjustFood.UseVisualStyleBackColor = true;
-            // 
-            // btnRemoveFood
-            // 
-            this.btnRemoveFood.Location = new System.Drawing.Point(116, 3);
-            this.btnRemoveFood.Name = "btnRemoveFood";
-            this.btnRemoveFood.Size = new System.Drawing.Size(87, 50);
-            this.btnRemoveFood.TabIndex = 1;
-            this.btnRemoveFood.Text = "Xóa";
-            this.btnRemoveFood.UseVisualStyleBackColor = true;
-            // 
-            // btnAddFood
-            // 
-            this.btnAddFood.Location = new System.Drawing.Point(3, 3);
-            this.btnAddFood.Name = "btnAddFood";
-            this.btnAddFood.Size = new System.Drawing.Size(87, 50);
-            this.btnAddFood.TabIndex = 0;
-            this.btnAddFood.Text = "Thêm";
-            this.btnAddFood.UseVisualStyleBackColor = true;
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.dtGVFood);
-            this.panel1.Location = new System.Drawing.Point(6, 68);
+            this.panel1.Location = new System.Drawing.Point(6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(555, 450);
+            this.panel1.Size = new System.Drawing.Size(555, 512);
             this.panel1.TabIndex = 8;
             // 
             // dtGVFood
             // 
+            this.dtGVFood.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtGVFood.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtGVFood.Location = new System.Drawing.Point(3, 3);
+            this.dtGVFood.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtGVFood.Location = new System.Drawing.Point(0, 0);
             this.dtGVFood.Name = "dtGVFood";
             this.dtGVFood.RowHeadersWidth = 51;
             this.dtGVFood.RowTemplate.Height = 24;
-            this.dtGVFood.Size = new System.Drawing.Size(549, 444);
+            this.dtGVFood.Size = new System.Drawing.Size(555, 512);
             this.dtGVFood.TabIndex = 0;
             // 
             // tabCategory
@@ -936,25 +970,6 @@
             this.dtGVAcc.Size = new System.Drawing.Size(549, 444);
             this.dtGVAcc.TabIndex = 0;
             // 
-            // csBtnStatistical
-            // 
-            this.csBtnStatistical.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.csBtnStatistical.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.csBtnStatistical.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.csBtnStatistical.BorderRadius = 0;
-            this.csBtnStatistical.BorderSize = 0;
-            this.csBtnStatistical.FlatAppearance.BorderSize = 0;
-            this.csBtnStatistical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.csBtnStatistical.ForeColor = System.Drawing.Color.Ivory;
-            this.csBtnStatistical.Location = new System.Drawing.Point(778, -3);
-            this.csBtnStatistical.Name = "csBtnStatistical";
-            this.csBtnStatistical.Size = new System.Drawing.Size(150, 40);
-            this.csBtnStatistical.TabIndex = 1;
-            this.csBtnStatistical.Text = "Thống kê";
-            this.csBtnStatistical.TextColor = System.Drawing.Color.Ivory;
-            this.csBtnStatistical.UseVisualStyleBackColor = false;
-            this.csBtnStatistical.Click += new System.EventHandler(this.csBtnStatistical_Click);
-            // 
             // fAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -979,11 +994,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudFoodPrice)).EndInit();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtGVFood)).EndInit();
             this.tabCategory.ResumeLayout(false);
@@ -1032,7 +1047,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnViewFood;
-        private System.Windows.Forms.Button btnAdjustFood;
+        private System.Windows.Forms.Button btnEditFood;
         private System.Windows.Forms.Button btnRemoveFood;
         private System.Windows.Forms.Button btnAddFood;
         private System.Windows.Forms.Panel panel1;
@@ -1107,5 +1122,6 @@
         private System.Windows.Forms.DataGridView dtGVAcc;
         private System.Windows.Forms.Button btnResetPass;
         private csControls.csButton csBtnStatistical;
+        private System.Windows.Forms.Panel panel28;
     }
 }

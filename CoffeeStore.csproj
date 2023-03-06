@@ -72,14 +72,14 @@
     <Compile Include="DAO\BillInfoDAO.cs" />
     <Compile Include="DAO\CategoryDAO.cs" />
     <Compile Include="DAO\FoodDAO.cs" />
-    <Compile Include="DAO\InterfaceBillInfoDAO.cs" />
+    <Compile Include="DAO\InterfaceViewDAO.cs" />
     <Compile Include="DAO\TableDAO.cs" />
     <Compile Include="DTO\Account.cs" />
     <Compile Include="DTO\Bill.cs" />
     <Compile Include="DTO\BillInfo.cs" />
     <Compile Include="DTO\Category.cs" />
     <Compile Include="DTO\Food.cs" />
-    <Compile Include="DTO\InterfaceBillInfo.cs" />
+    <Compile Include="DTO\InterfaceView.cs" />
     <Compile Include="DTO\Table.cs" />
     <Compile Include="DAO\DataProvider.cs" />
     <Compile Include="fAccInfo.cs">

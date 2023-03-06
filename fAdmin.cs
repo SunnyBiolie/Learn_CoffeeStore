@@ -48,15 +48,15 @@ namespace CoffeeStore
 
         private void LoadListFoods()
         {
-            listFoods.DataSource = FoodDAO.Instance.GetListFoods();
+            listFoods.DataSource = InterfaceFoodInfoDAO.Instance.GetListInterfaceFoodInfo();
         }
 
         private void AddFoodBinding()
         {
-            tBoxFoodID.DataBindings.Add(new Binding("Text", dtGVFood.DataSource, "ID"));
-            tBoxFoodName.DataBindings.Add(new Binding("Text", dtGVFood.DataSource, "Name"));
+            tBoxFoodID.DataBindings.Add(new Binding("Text", dtGVFood.DataSource, "ID", true, DataSourceUpdateMode.Never));
+            tBoxFoodName.DataBindings.Add(new Binding("Text", dtGVFood.DataSource, "FoodName", true, DataSourceUpdateMode.Never));
             LoadCategoryComboBox(cBoxFoodCategory);
-            nudFoodPrice.DataBindings.Add(new Binding("value", dtGVFood.DataSource, "FoodPrice"));
+            nudFoodPrice.DataBindings.Add(new Binding("value", dtGVFood.DataSource, "FoodPrice", true, DataSourceUpdateMode.Never));
         }
 
         /// <summary>
@@ -85,18 +85,17 @@ namespace CoffeeStore
         {
             if (dtGVFood.SelectedCells.Count > 0)
             {
-                int id = (int)dtGVFood.SelectedCells[0].OwningRow.Cells["IDCategory"].Value;
+                string categoryName = (string)dtGVFood.SelectedCells[0].OwningRow.Cells["CategoryName"].Value;
 
-                Category category = CategoryDAO.Instance.GetCategoryByID(id);
-
-                cBoxFoodCategory.SelectedItem = category;
+                //Category category = CategoryDAO.Instance.GetCategoryByID(id);
+                //cBoxFoodCategory.SelectedItem = category;
 
                 int index = -1;
                 int i = 0;
                 // duyệt qua item trong DanhMuc, nào trùng vs idDM đc select thì trả ra index
                 foreach (Category item in cBoxFoodCategory.Items)
                 {
-                    if (item.Id == id)
+                    if (item.Name == categoryName)
                     {
                         index = i; break;
                     }
@@ -106,6 +105,86 @@ namespace CoffeeStore
                 cBoxFoodCategory.SelectedIndex = index;
             }
         }
+
+        private void btnAddFood_Click(object sender, EventArgs e)
+        {
+            string foodName = tBoxFoodName.Text;
+            int categoryID = (cBoxFoodCategory.SelectedItem as Category).Id;
+            float foodPrice = Convert.ToSingle(nudFoodPrice.Value);
+
+            if (FoodDAO.Instance.InsertFood(foodName, categoryID, foodPrice))
+            {
+                MessageBox.Show($"Thêm thành công {foodName} vào danh mục {(cBoxFoodCategory.SelectedItem as Category).Name}");
+
+                LoadListFoods();
+                if (insertFood != null)
+                    insertFood(this, new EventArgs());
+            }
+            else
+            {
+                MessageBox.Show($"Đã xảy ra lỗi khi thêm món");
+            }
+        }
+
+        private void btnEditFood_Click(object sender, EventArgs e)
+        {
+            string foodName = tBoxFoodName.Text;
+            int categoryID = (cBoxFoodCategory.SelectedItem as Category).Id;
+            float foodPrice = Convert.ToSingle(nudFoodPrice.Value);
+            int foodID = Convert.ToInt32(tBoxFoodID.Text);
+
+            if (FoodDAO.Instance.EditFoodInfo(foodName, categoryID, foodPrice, foodID))
+            {
+                MessageBox.Show($"Thay đổi thông tin {foodName} thành công");
+
+                LoadListFoods();
+                if (editFood != null)
+                    editFood(this, new EventArgs());
+            }
+            else
+            {
+                MessageBox.Show($"Đã xảy ra lỗi khi thay đổi thông tin món");
+            }
+        }
+
+        private void btnRemoveFood_Click(object sender, EventArgs e)
+        {
+            int foodID = Convert.ToInt32(tBoxFoodID.Text);
+
+            if (FoodDAO.Instance.DeleteFood(foodID))
+            {
+                MessageBox.Show($"Xóa món thành công");
+
+                LoadListFoods();
+                if (deletetFood != null)
+                    deletetFood(this, new EventArgs());
+            }
+            else
+            {
+                MessageBox.Show($"Đã xảy ra lỗi khi xóa món");
+            }
+        }
+
         #endregion
+
+        private event EventHandler insertFood;
+        private event EventHandler editFood;
+        private event EventHandler deletetFood;
+
+        public event EventHandler InsertFood
+        {
+            add { insertFood += value; }
+            remove { insertFood -= value; }
+        }
+        public event EventHandler EditFood
+        {
+            add { editFood += value; }
+            remove { editFood -= value; }
+        }
+        public event EventHandler DeleteFood
+        {
+            add { deletetFood += value; }
+            remove { deletetFood -= value; }
+        }
     }
 }
