@@ -19,10 +19,20 @@ namespace CoffeeStore
             InitializeComponent();
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        bool isMember(string userName, string pass)
         {
-            string userName = tBoxUserName.Text;
-            string pass = tBoxPass.Text;
+            return AccountDAO.Instance.LoginCheck(userName, pass);
+        }
+
+        private void csBtnLogin_Click(object sender, EventArgs e)
+        {
+            string userName = csTBoxUserName.Texts;
+            string pass = csTBoxPass.Texts;
+            if (userName == null || userName == "" || pass == null || pass == "")
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (isMember(userName, pass))
             {
                 Account accLogined = AccountDAO.Instance.GetAccByUserName(userName);
@@ -31,12 +41,10 @@ namespace CoffeeStore
                 fHome.ShowDialog();
                 this.Show();
             }
-            else MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu");
-        }
-
-        bool isMember(string userName, string pass)
-        {
-            return AccountDAO.Instance.Login(userName, pass);
+            else
+            {
+                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác\nXin vui lòng kiểm tra lại thông tin đăng nhập", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace CoffeeStore
 {
@@ -18,8 +19,8 @@ namespace CoffeeStore
     {
         private CultureInfo GE_Culture = new CultureInfo("de-DE");
 
+        // Thông tin của Tài Khoản đang đăng nhập
         private Account accLogined;
-
         public Account AccLogined
         {
             get => accLogined;
@@ -33,17 +34,21 @@ namespace CoffeeStore
         public fHome(Account accLogined)
         {
             InitializeComponent();
-
             AccLogined = accLogined;
 
+            CallLoad();
+        }
+
+        private void CallLoad()
+        {
             LoadTables();
             LoadCategory();
         }
 
         private void Decentralization(int accType)
         {
-            if (accType == 1 ) adminToolStripMenuItem.Enabled = true;
-            thôngTinToolStripMenuItem.Text += $" ({AccLogined.DisplayName})";
+            if (accType == 1 ) tsmItemAdmin.Enabled = true;
+            tsmItemInfo.Text += $" ({AccLogined.DisplayName})";
         }
 
         private void LoadCategory()
@@ -58,7 +63,16 @@ namespace CoffeeStore
             List<Food> foods = FoodDAO.Instance.GetListFoodByCategoryID(categoryID);
             cbBoxFood.DataSource = foods;
             cbBoxFood.DisplayMember = "Name";
+            if (cbBoxFood.SelectedItem == null)
+            {
+                cbBoxFood.Text = string.Empty;
+                return;
+            }
         }
+        
+        /// <summary>
+        /// Render toàn bộ các button controller để thể hiện cho các bàn của quán
+        /// </summary>
         private void LoadTables()
         {
             fLayoutTable.Controls.Clear();
@@ -73,6 +87,7 @@ namespace CoffeeStore
                     BorderSize = 1,
                     BorderRadius = 0,
                     Margin = new Padding(6),
+                    TabStop = false,
                 };
                 btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 btn.Text = table.Name + Environment.NewLine + table.Status;
@@ -96,7 +111,7 @@ namespace CoffeeStore
         }
 
         /// <summary>
-        /// Load lại đúng button thể hiện bàn đã chọn
+        /// Render lại đúng 1 button controller thể hiện cho đúng bàn đã chọn
         /// </summary>
         private void ReloadTable()
         {
@@ -113,6 +128,11 @@ namespace CoffeeStore
                     break;
             }
         }
+
+        /// <summary>
+        /// Hiển thị hóa đơn chưa thanh toán của một bàn cụ thể
+        /// </summary>
+        /// <param name="tableID"></param>
         private void ShowBill(int tableID)
         {
             lViewBill.Items.Clear();
@@ -139,10 +159,15 @@ namespace CoffeeStore
             }
 
             CultureInfo culture = new CultureInfo("vi-VN");
-            tBoxTotalPrice.Text = totalBill.ToString("c", culture);
+            tBoxTotalPrice.Texts = totalBill.ToString("c", culture);
         }
 
         #region Events
+        /// <summary>
+        /// Lắng nghe sự kiện click vào các Button Controller thể hiện cho các bàn
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Btn_Click(object sender, EventArgs e)
         {
             //Button btntemp = sender as Button;
@@ -157,14 +182,30 @@ namespace CoffeeStore
             ShowBill(tableID);
         }
 
+        /// <summary>
+        /// Show dialog form Admin
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void adminToolStripMenuItem_Click(object sender, EventArgs e)
         {
             fAdmin fAdmin = new fAdmin();
+
+            // Theo dõi thông tin tài khoản đang đăng nhập
+            fAdmin.loginedAccount = accLogined;
+
             fAdmin.InsertFood += fAdmin_InsertFood;
             fAdmin.EditFood += fAdmin_EditFood;
             fAdmin.DeleteFood += fAdmin_DeleteFood;
+
+            fAdmin.InsertCategory += fAdmin_InsertCategory;
+            fAdmin.EditCategory += fAdmin_EditCategory;
+            fAdmin.DeleteCategory += fAdmin_DeleteCategory;
+
             fAdmin.ShowDialog();
         }
+
+        #region fAdmin event
         /// <summary>
         /// Sự kiện được gọi sau khi thêm món thành công ở fAdmin
         /// Hàm được thực hiện khi sự kiện được gọi, đồng bộ giao diện hiển thị vs dữ liệu
@@ -190,6 +231,23 @@ namespace CoffeeStore
             if (lViewBill.Tag != null)
                 ShowBill((lViewBill.Tag as Table).Id);
         }
+        
+        private void fAdmin_InsertCategory(object sender, EventArgs e)
+        {
+            LoadCategory();
+            LoadFoodListByCategoryID((cbCategory.SelectedItem as Category).Id);
+        }
+        private void fAdmin_EditCategory(object sender, EventArgs e)
+        {
+            LoadCategory();
+            LoadFoodListByCategoryID((cbCategory.SelectedItem as Category).Id);
+        }
+        private void fAdmin_DeleteCategory(object sender, EventArgs e)
+        {
+            LoadCategory();
+            LoadFoodListByCategoryID((cbCategory.SelectedItem as Category).Id);
+        }
+        #endregion
 
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -201,41 +259,31 @@ namespace CoffeeStore
             LoadFoodListByCategoryID(categoryID);
         }
 
-        private void btnAddFood_Click(object sender, EventArgs e)
+        private void thôngTinCáNhânToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Table table = lViewBill.Tag as Table;
-            if (table == null)
-            {
-                MessageBox.Show("Vui lòng chọn bàn trước khi thêm món", "Thông báo");
-                return;
-            }
-            int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(table.Id);
-            int idFood = (cbBoxFood.SelectedItem as Food).Id;
-            int foodCount = (int)numUD_FoodCount.Value;
-
-            // Bàn chhưa tồn tại Hóa Đơn
-            if (idBill == -1)
-            {
-                BillDAO.Instance.InsertBill(table.Id);
-                BillInfoDAO.Instance.InsertBillInfo(BillDAO.Instance.GetMaxIDBill(), idFood, foodCount);
-            }
-            else
-            {
-                BillInfoDAO.Instance.InsertBillInfo(idBill, idFood, foodCount);
-            }
-
-            ShowBill(table.Id);
-            ReloadTable();
+            fAccInfo fAccInfo = new fAccInfo(AccLogined);
+            fAccInfo.UpdateInfo += fAccInfo_UpdateInfo;
+            fAccInfo.ShowDialog();
+        }
+        
+        private void fAccInfo_UpdateInfo(object sender, AccountEvent e)
+        {
+            tsmItemInfo.Text = $"Thông tin ({e.Account.DisplayName})";
         }
 
-        private void btnPay_Click(object sender, EventArgs e)
+        private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnPay_Click_1(object sender, EventArgs e)
         {
             if (lViewBill.Tag != null)
             {
                 Table curTable = lViewBill.Tag as Table;
                 int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(curTable.Id);
 
-                float totalPrice = Convert.ToSingle(tBoxTotalPrice.Text.Split(',')[0], GE_Culture);
+                float totalPrice = Convert.ToSingle(tBoxTotalPrice.Texts.Split(',')[0], GE_Culture);
 
                 if (idBill != -1)
                 {
@@ -251,21 +299,39 @@ namespace CoffeeStore
             else return;
         }
 
-        private void thôngTinCáNhânToolStripMenuItem_Click(object sender, EventArgs e)
+        private void btnAddFood_Click(object sender, EventArgs e)
         {
-            fAccInfo fAccInfo = new fAccInfo(AccLogined);
-            fAccInfo.UpdateInfo += fAccInfo_UpdateInfo;
-            fAccInfo.ShowDialog();
-        }
-        private void fAccInfo_UpdateInfo(object sender, AccountEvent e)
-        {
-            thôngTinToolStripMenuItem.Text = $"Thông tin ({e.Account.DisplayName})";
+            Table table = lViewBill.Tag as Table;
+            if (table == null)
+            {
+                MessageBox.Show("Vui lòng chọn bàn trước khi thêm món", "Thông báo");
+                return;
+            }
+            if (cbBoxFood.SelectedItem == null)
+            {
+                MessageBox.Show("Danh mục này chưa được thêm món ăn nào, xin vui lòng chọn món khác hoặc liên hệ với quản trị viên", "Thông báo");
+                return;
+            }
+            int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(table.Id);
+            int idFood = (cbBoxFood.SelectedItem as Food).Id;
+            int foodCount = (int)numUD_FoodCount.Value;
+
+            // Bàn chưa tồn tại Hóa Đơn
+            if (idBill == -1)
+            {
+                BillDAO.Instance.InsertBill(table.Id);
+                BillInfoDAO.Instance.InsertBillInfo(BillDAO.Instance.GetMaxIDBill(), idFood, foodCount);
+            }
+            else
+            {
+                BillInfoDAO.Instance.InsertBillInfo(idBill, idFood, foodCount);
+            }
+
+            numUD_FoodCount.Value = 1;
+            ShowBill(table.Id);
+            ReloadTable();
         }
 
-        private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
         #endregion
     }
 }

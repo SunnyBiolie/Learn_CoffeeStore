@@ -34,10 +34,10 @@ namespace CoffeeStore.DAO
             DataTable data = DataProvider.Instance.ExecuteQuery($"select * from HoaDon where idBan = {tableID} and TrangThai = 0");
             if (data.Rows.Count > 0)
             {
-                //Bill bill = new Bill(data.Rows[0]);
-                //return bill.BillID;
+                Bill bill = new Bill(data.Rows[0]);
+                return bill.BillID;
 
-                return (int)data.Rows[0][0];
+                //return (int)data.Rows[0][0];
             }
             return -1;
         }
@@ -62,7 +62,8 @@ namespace CoffeeStore.DAO
 
         public DataTable GetListBillByDate(DateTime dateCheckIn, DateTime dateCheckOut)
         {
-            return DataProvider.Instance.ExecuteQuery("exec USP_GetListBillByDate @NgayVao , @NgayRa", new object[] {dateCheckIn, dateCheckOut});
+            string query = $"exec USP_GetListBillByDate @NgayVao , @NgayRa";
+            return DataProvider.Instance.ExecuteQuery(query, new object[] { dateCheckIn, dateCheckOut });
         }
     }
 }

@@ -34,22 +34,23 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.tBoxDisplayName = new System.Windows.Forms.TextBox();
-            this.tBoxOldPass = new System.Windows.Forms.TextBox();
-            this.tBoxNewPass = new System.Windows.Forms.TextBox();
-            this.tBoxReNewPass = new System.Windows.Forms.TextBox();
-            this.tBoxUserName = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnOut = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
+            this.chBoxAccInfo = new System.Windows.Forms.CheckBox();
+            this.chBoxPass = new System.Windows.Forms.CheckBox();
+            this.tBoxReNewPass = new CoffeeStore.csControls.csTextBox();
+            this.tBoxNewPass = new CoffeeStore.csControls.csTextBox();
+            this.tBoxOldPass = new CoffeeStore.csControls.csTextBox();
+            this.tBoxUserName = new CoffeeStore.csControls.csTextBox();
+            this.tBoxDisplayName = new CoffeeStore.csControls.csTextBox();
+            this.btnUpdate = new CoffeeStore.csControls.csButton();
+            this.btnOut = new CoffeeStore.csControls.csButton();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(35, 54);
+            this.label1.Location = new System.Drawing.Point(15, 68);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(91, 20);
             this.label1.TabIndex = 0;
@@ -59,7 +60,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(35, 115);
+            this.label2.Location = new System.Drawing.Point(15, 117);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(116, 20);
             this.label2.TabIndex = 1;
@@ -67,19 +68,22 @@
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 245);
+            this.label3.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.Control;
+            this.label3.Location = new System.Drawing.Point(0, 164);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 20);
+            this.label3.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.label3.Size = new System.Drawing.Size(432, 40);
             this.label3.TabIndex = 2;
             this.label3.Text = "Đổi mật khẩu";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(35, 179);
+            this.label4.Location = new System.Drawing.Point(15, 352);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(142, 20);
             this.label4.TabIndex = 3;
@@ -89,7 +93,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(35, 279);
+            this.label5.Location = new System.Drawing.Point(15, 229);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(104, 20);
             this.label5.TabIndex = 4;
@@ -99,113 +103,231 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(35, 340);
+            this.label6.Location = new System.Drawing.Point(15, 281);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(136, 20);
             this.label6.TabIndex = 5;
             this.label6.Text = "Nhập lại mật khẩu";
             // 
-            // tBoxDisplayName
+            // label7
             // 
-            this.tBoxDisplayName.Enabled = false;
-            this.tBoxDisplayName.Location = new System.Drawing.Point(39, 77);
-            this.tBoxDisplayName.Name = "tBoxDisplayName";
-            this.tBoxDisplayName.Size = new System.Drawing.Size(250, 22);
-            this.tBoxDisplayName.TabIndex = 6;
+            this.label7.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.Control;
+            this.label7.Location = new System.Drawing.Point(0, 0);
+            this.label7.Name = "label7";
+            this.label7.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.label7.Size = new System.Drawing.Size(432, 40);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Sửa thông tin tài khoản";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tBoxOldPass
+            // chBoxAccInfo
             // 
-            this.tBoxOldPass.Enabled = false;
-            this.tBoxOldPass.Location = new System.Drawing.Point(39, 202);
-            this.tBoxOldPass.Name = "tBoxOldPass";
-            this.tBoxOldPass.Size = new System.Drawing.Size(250, 22);
-            this.tBoxOldPass.TabIndex = 7;
+            this.chBoxAccInfo.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.chBoxAccInfo.Location = new System.Drawing.Point(400, 0);
+            this.chBoxAccInfo.Margin = new System.Windows.Forms.Padding(0);
+            this.chBoxAccInfo.Name = "chBoxAccInfo";
+            this.chBoxAccInfo.Size = new System.Drawing.Size(30, 40);
+            this.chBoxAccInfo.TabIndex = 15;
+            this.chBoxAccInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chBoxAccInfo.UseVisualStyleBackColor = false;
+            this.chBoxAccInfo.CheckedChanged += new System.EventHandler(this.chBoxAccInfo_CheckedChanged);
             // 
-            // tBoxNewPass
+            // chBoxPass
             // 
-            this.tBoxNewPass.Enabled = false;
-            this.tBoxNewPass.Location = new System.Drawing.Point(39, 302);
-            this.tBoxNewPass.Name = "tBoxNewPass";
-            this.tBoxNewPass.Size = new System.Drawing.Size(250, 22);
-            this.tBoxNewPass.TabIndex = 8;
+            this.chBoxPass.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.chBoxPass.Location = new System.Drawing.Point(400, 164);
+            this.chBoxPass.Margin = new System.Windows.Forms.Padding(0);
+            this.chBoxPass.Name = "chBoxPass";
+            this.chBoxPass.Size = new System.Drawing.Size(30, 40);
+            this.chBoxPass.TabIndex = 16;
+            this.chBoxPass.UseVisualStyleBackColor = false;
+            this.chBoxPass.CheckedChanged += new System.EventHandler(this.chBoxPass_CheckedChanged);
             // 
             // tBoxReNewPass
             // 
+            this.tBoxReNewPass.BackColor = System.Drawing.SystemColors.Control;
+            this.tBoxReNewPass.BorderColor = System.Drawing.Color.SlateBlue;
+            this.tBoxReNewPass.BorderFocusColor = System.Drawing.Color.PaleVioletRed;
+            this.tBoxReNewPass.BorderRadius = 0;
+            this.tBoxReNewPass.BorderSize = 1;
             this.tBoxReNewPass.Enabled = false;
-            this.tBoxReNewPass.Location = new System.Drawing.Point(39, 363);
+            this.tBoxReNewPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tBoxReNewPass.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.tBoxReNewPass.Location = new System.Drawing.Point(156, 275);
+            this.tBoxReNewPass.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tBoxReNewPass.Multiline = false;
             this.tBoxReNewPass.Name = "tBoxReNewPass";
-            this.tBoxReNewPass.Size = new System.Drawing.Size(250, 22);
-            this.tBoxReNewPass.TabIndex = 9;
+            this.tBoxReNewPass.Padding = new System.Windows.Forms.Padding(7);
+            this.tBoxReNewPass.PasswordChar = true;
+            this.tBoxReNewPass.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.tBoxReNewPass.PlaceHolderText = "";
+            this.tBoxReNewPass.ReadOnly = false;
+            this.tBoxReNewPass.Size = new System.Drawing.Size(250, 33);
+            this.tBoxReNewPass.TabIndex = 21;
+            this.tBoxReNewPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tBoxReNewPass.Texts = "";
+            this.tBoxReNewPass.UnderlineStyle = false;
+            // 
+            // tBoxNewPass
+            // 
+            this.tBoxNewPass.BackColor = System.Drawing.SystemColors.Control;
+            this.tBoxNewPass.BorderColor = System.Drawing.Color.SlateBlue;
+            this.tBoxNewPass.BorderFocusColor = System.Drawing.Color.PaleVioletRed;
+            this.tBoxNewPass.BorderRadius = 0;
+            this.tBoxNewPass.BorderSize = 1;
+            this.tBoxNewPass.Enabled = false;
+            this.tBoxNewPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tBoxNewPass.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.tBoxNewPass.Location = new System.Drawing.Point(156, 224);
+            this.tBoxNewPass.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tBoxNewPass.Multiline = false;
+            this.tBoxNewPass.Name = "tBoxNewPass";
+            this.tBoxNewPass.Padding = new System.Windows.Forms.Padding(7);
+            this.tBoxNewPass.PasswordChar = true;
+            this.tBoxNewPass.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.tBoxNewPass.PlaceHolderText = "";
+            this.tBoxNewPass.ReadOnly = false;
+            this.tBoxNewPass.Size = new System.Drawing.Size(250, 33);
+            this.tBoxNewPass.TabIndex = 20;
+            this.tBoxNewPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tBoxNewPass.Texts = "";
+            this.tBoxNewPass.UnderlineStyle = false;
+            // 
+            // tBoxOldPass
+            // 
+            this.tBoxOldPass.BackColor = System.Drawing.SystemColors.Control;
+            this.tBoxOldPass.BorderColor = System.Drawing.Color.SlateBlue;
+            this.tBoxOldPass.BorderFocusColor = System.Drawing.Color.PaleVioletRed;
+            this.tBoxOldPass.BorderRadius = 0;
+            this.tBoxOldPass.BorderSize = 1;
+            this.tBoxOldPass.Enabled = false;
+            this.tBoxOldPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tBoxOldPass.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.tBoxOldPass.Location = new System.Drawing.Point(156, 346);
+            this.tBoxOldPass.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tBoxOldPass.Multiline = false;
+            this.tBoxOldPass.Name = "tBoxOldPass";
+            this.tBoxOldPass.Padding = new System.Windows.Forms.Padding(7);
+            this.tBoxOldPass.PasswordChar = true;
+            this.tBoxOldPass.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.tBoxOldPass.PlaceHolderText = "";
+            this.tBoxOldPass.ReadOnly = false;
+            this.tBoxOldPass.Size = new System.Drawing.Size(250, 33);
+            this.tBoxOldPass.TabIndex = 19;
+            this.tBoxOldPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tBoxOldPass.Texts = "";
+            this.tBoxOldPass.UnderlineStyle = false;
             // 
             // tBoxUserName
             // 
+            this.tBoxUserName.BackColor = System.Drawing.SystemColors.Control;
+            this.tBoxUserName.BorderColor = System.Drawing.Color.SlateBlue;
+            this.tBoxUserName.BorderFocusColor = System.Drawing.Color.PaleVioletRed;
+            this.tBoxUserName.BorderRadius = 0;
+            this.tBoxUserName.BorderSize = 1;
             this.tBoxUserName.Enabled = false;
-            this.tBoxUserName.Location = new System.Drawing.Point(39, 138);
+            this.tBoxUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tBoxUserName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.tBoxUserName.Location = new System.Drawing.Point(154, 113);
+            this.tBoxUserName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tBoxUserName.Multiline = false;
             this.tBoxUserName.Name = "tBoxUserName";
-            this.tBoxUserName.Size = new System.Drawing.Size(250, 22);
-            this.tBoxUserName.TabIndex = 10;
+            this.tBoxUserName.Padding = new System.Windows.Forms.Padding(7);
+            this.tBoxUserName.PasswordChar = false;
+            this.tBoxUserName.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.tBoxUserName.PlaceHolderText = "";
+            this.tBoxUserName.ReadOnly = false;
+            this.tBoxUserName.Size = new System.Drawing.Size(250, 33);
+            this.tBoxUserName.TabIndex = 18;
+            this.tBoxUserName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tBoxUserName.Texts = "";
+            this.tBoxUserName.UnderlineStyle = false;
             // 
-            // label7
+            // tBoxDisplayName
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(12, 19);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(173, 20);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Sửa thông tin tài khoản";
+            this.tBoxDisplayName.BackColor = System.Drawing.SystemColors.Control;
+            this.tBoxDisplayName.BorderColor = System.Drawing.Color.SlateBlue;
+            this.tBoxDisplayName.BorderFocusColor = System.Drawing.Color.PaleVioletRed;
+            this.tBoxDisplayName.BorderRadius = 0;
+            this.tBoxDisplayName.BorderSize = 1;
+            this.tBoxDisplayName.Enabled = false;
+            this.tBoxDisplayName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tBoxDisplayName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.tBoxDisplayName.Location = new System.Drawing.Point(154, 60);
+            this.tBoxDisplayName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tBoxDisplayName.Multiline = false;
+            this.tBoxDisplayName.Name = "tBoxDisplayName";
+            this.tBoxDisplayName.Padding = new System.Windows.Forms.Padding(7);
+            this.tBoxDisplayName.PasswordChar = false;
+            this.tBoxDisplayName.PlaceHolderColor = System.Drawing.Color.DarkGray;
+            this.tBoxDisplayName.PlaceHolderText = "";
+            this.tBoxDisplayName.ReadOnly = false;
+            this.tBoxDisplayName.Size = new System.Drawing.Size(250, 33);
+            this.tBoxDisplayName.TabIndex = 17;
+            this.tBoxDisplayName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.tBoxDisplayName.Texts = "";
+            this.tBoxDisplayName.UnderlineStyle = false;
             // 
             // btnUpdate
             // 
+            this.btnUpdate.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.btnUpdate.BackgroundColor = System.Drawing.SystemColors.ButtonShadow;
+            this.btnUpdate.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnUpdate.BorderRadius = 0;
+            this.btnUpdate.BorderSize = 1;
             this.btnUpdate.Enabled = false;
-            this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdate.Location = new System.Drawing.Point(189, 424);
+            this.btnUpdate.FlatAppearance.BorderSize = 0;
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdate.ForeColor = System.Drawing.Color.Ivory;
+            this.btnUpdate.Location = new System.Drawing.Point(80, 411);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(100, 50);
-            this.btnUpdate.TabIndex = 12;
+            this.btnUpdate.Size = new System.Drawing.Size(130, 45);
+            this.btnUpdate.TabIndex = 22;
             this.btnUpdate.Text = "Cập nhật";
-            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.TextColor = System.Drawing.Color.Ivory;
+            this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnOut
             // 
-            this.btnOut.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOut.Location = new System.Drawing.Point(304, 424);
+            this.btnOut.BackColor = System.Drawing.Color.SlateBlue;
+            this.btnOut.BackgroundColor = System.Drawing.Color.SlateBlue;
+            this.btnOut.BorderColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnOut.BorderRadius = 0;
+            this.btnOut.BorderSize = 1;
+            this.btnOut.FlatAppearance.BorderSize = 0;
+            this.btnOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOut.ForeColor = System.Drawing.Color.Ivory;
+            this.btnOut.Location = new System.Drawing.Point(240, 411);
             this.btnOut.Name = "btnOut";
-            this.btnOut.Size = new System.Drawing.Size(100, 50);
-            this.btnOut.TabIndex = 13;
+            this.btnOut.Size = new System.Drawing.Size(130, 45);
+            this.btnOut.TabIndex = 23;
             this.btnOut.Text = "Thoát";
-            this.btnOut.UseVisualStyleBackColor = true;
+            this.btnOut.TextColor = System.Drawing.Color.Ivory;
+            this.btnOut.UseVisualStyleBackColor = false;
             this.btnOut.Click += new System.EventHandler(this.btnOut_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.Location = new System.Drawing.Point(12, 424);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(159, 50);
-            this.btnEdit.TabIndex = 14;
-            this.btnEdit.Text = "Thay đổi thông tin";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // fAccInfo
             // 
-            this.AcceptButton = this.btnUpdate;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btnOut;
-            this.ClientSize = new System.Drawing.Size(461, 493);
-            this.Controls.Add(this.btnEdit);
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ClientSize = new System.Drawing.Size(432, 483);
             this.Controls.Add(this.btnOut);
             this.Controls.Add(this.btnUpdate);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.tBoxUserName);
             this.Controls.Add(this.tBoxReNewPass);
             this.Controls.Add(this.tBoxNewPass);
             this.Controls.Add(this.tBoxOldPass);
+            this.Controls.Add(this.tBoxUserName);
             this.Controls.Add(this.tBoxDisplayName);
+            this.Controls.Add(this.chBoxPass);
+            this.Controls.Add(this.chBoxAccInfo);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -228,14 +350,15 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox tBoxDisplayName;
-        private System.Windows.Forms.TextBox tBoxOldPass;
-        private System.Windows.Forms.TextBox tBoxNewPass;
-        private System.Windows.Forms.TextBox tBoxReNewPass;
-        private System.Windows.Forms.TextBox tBoxUserName;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button btnUpdate;
-        private System.Windows.Forms.Button btnOut;
-        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.CheckBox chBoxAccInfo;
+        private System.Windows.Forms.CheckBox chBoxPass;
+        private csControls.csTextBox tBoxDisplayName;
+        private csControls.csTextBox tBoxUserName;
+        private csControls.csTextBox tBoxOldPass;
+        private csControls.csTextBox tBoxNewPass;
+        private csControls.csTextBox tBoxReNewPass;
+        private csControls.csButton btnUpdate;
+        private csControls.csButton btnOut;
     }
 }

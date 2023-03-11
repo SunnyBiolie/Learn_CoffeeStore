@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,13 +23,16 @@ namespace CoffeeStore.DAO
         }
         private AccountDAO() { }
 
-        public bool Login(string username, string password)
+        // Kiểm tra tính hợp lệ của tài khoản đăng nhập
+        public bool LoginCheck(string username, string password)
         {
             string query = "select * from dbo.TaiKhoan where TenDangNhap = @username and MatKhau = @password";
             DataTable result = DataProvider.Instance.ExecuteQuery(query, new object[] {username, password});
+
             return result.Rows.Count > 0;
         }
 
+        // Lấy ra thông tin của Tài Khoản đăng nhập đã được kiểm tra tính hợp lệ
         public Account GetAccByUserName(string userName)
         {
             string query = $"select * from TaiKhoan where TenDangNhap = @username";
@@ -41,19 +45,53 @@ namespace CoffeeStore.DAO
             return null;
         }
 
-        //public int GetTypeByUserName(string userName)
-        //{
-        //    string query = $"select PhanQuyen from TaiKhoan where TenDangNhap = N'{userName}'";
-        //    DataTable data = DataProvider.Instance.ExecuteQuery(query);
-        //    return (int)data.Rows[0][0];
-        //}
-
-        public bool UpdateAccount(string displayName, string userName, string oldPass, string newPass)
+        /// <summary>
+        /// Tên đăng nhập không thể được sửa
+        /// Nếu mật khẩu mới bằng null hoặc rỗng thì sẽ không cập nhật mật khẩu
+        /// </summary>
+        /// <param name="displayName"></param>
+        /// <param name="userName"></param>
+        /// <param name="oldPass"></param>
+        /// <param name="newPass"></param>
+        /// <returns></returns>
+        public bool UpdateCurAccountInfo(string displayName, string userName, string oldPass, string newPass)
         {
             string query = "exec USP_UpdateAccInfo @TenHienThi , @TenDangNhap , @MatKhau , @MatKhauMoi";
             int lineCount = DataProvider.Instance.ExecuteNonQuery(query, new object[] {displayName, userName, oldPass, newPass});
 
             return lineCount > 0;
+        }
+
+        public bool InsertAccount(string userName, string displayName, int type)
+        {
+            string query = $"insert TaiKhoan (TenDangNhap, TenHienThi, PhanQuyen) values ( @userName , @displayName , @type )";
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { userName, displayName, type });
+
+            return result > 0;
+        }
+
+        public bool EditAccInfo(string userName, string displayName, int type)
+        {
+            string query = $"update TaiKhoan set TenHienThi = @displayName , PhanQuyen = @type where TenDangNhap = @userName";
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { displayName, type, userName });
+
+            return result > 0;
+        }
+
+        public bool DeleteAccount(string userName)
+        {
+            string query = $"Delete TaiKhoan where TenDangNhap = @userName";
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { userName });
+
+            return result > 0;
+        }
+
+        public bool ResetPass(string userName)
+        {
+            string query = "update TaiKhoan set MatKhau = 'thecoffeehouse' where TenDangNhap = @userName";
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { userName });
+
+            return result > 0;
         }
     }
 }

@@ -63,6 +63,16 @@ namespace CoffeeStore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap brand {
+            get {
+                object obj = ResourceManager.GetObject("brand", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap calendarDark {
             get {
                 object obj = ResourceManager.GetObject("calendarDark", resourceCulture);
@@ -76,6 +86,36 @@ namespace CoffeeStore.Properties {
         internal static System.Drawing.Bitmap calendarWhite {
             get {
                 object obj = ResourceManager.GetObject("calendarWhite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap login_img {
+            get {
+                object obj = ResourceManager.GetObject("login-img", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap passwordImg {
+            get {
+                object obj = ResourceManager.GetObject("passwordImg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap userImg {
+            get {
+                object obj = ResourceManager.GetObject("userImg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

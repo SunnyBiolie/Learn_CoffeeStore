@@ -56,16 +56,16 @@ namespace CoffeeStore.DAO
 
         public bool InsertFood(string foodName, int categoryID, float foodPrice)
         {
-            string query = $"insert MonAn (TenMon, idDM, GiaMonAn) values (N'{foodName}', {categoryID}, {foodPrice})";
-            int result = DataProvider.Instance.ExecuteNonQuery(query);
+            string query = $"insert MonAn (TenMon, idDM, GiaMonAn) values ( @foodName , @categoryID , @foodPrice )";
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { foodName, categoryID, foodPrice });
 
             return result > 0;
         }
 
         public bool EditFoodInfo(string foodName, int categoryID, float foodPrice, int foodID)
         {
-            string query = $"update MonAn set TenMon = N'{foodName}', idDM = {categoryID}, GiaMonAn = {foodPrice} where ID = {foodID}";
-            int result = DataProvider.Instance.ExecuteNonQuery(query);
+            string query = $"update MonAn set TenMon = @foodName , idDM = @categoryID , GiaMonAn = @foodPrice where ID = @foodID";
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { foodName, categoryID, foodPrice, foodID });
 
             return result > 0;
         }
@@ -74,8 +74,8 @@ namespace CoffeeStore.DAO
         {
             BillInfoDAO.Instance.DeleteBillInfoByFoodID(foodID);
 
-            string query = $"Delete MonAn where ID = {foodID}";
-            int result = DataProvider.Instance.ExecuteNonQuery(query);
+            string query = $"Delete MonAn where ID = @foodID";
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { foodID });
 
             return result > 0;
         }

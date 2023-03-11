@@ -30,22 +30,23 @@ namespace CoffeeStore
             InitializeComponent();
 
             AccLogined = accLogined;
-            ChangeAccount(accLogined);
+            ShowAccInfo(accLogined);
         }
 
-        private void ChangeAccount(Account accLogined)
+        #region Methods
+        private void ShowAccInfo(Account accLogined)
         {
-            tBoxUserName.Text = accLogined.UserName;
-            tBoxDisplayName.Text = accLogined.DisplayName;
+            tBoxUserName.Texts = accLogined.UserName;
+            tBoxDisplayName.Texts = accLogined.DisplayName;
         }
 
         private void UpdateAccInfo()
         {
-            string displayName = tBoxDisplayName.Text;
-            string userName = tBoxUserName.Text;
-            string oldPass = tBoxOldPass.Text;
-            string newPass = tBoxNewPass.Text;
-            string reEnterPass = tBoxReNewPass.Text;
+            string displayName = tBoxDisplayName.Texts;
+            string userName = tBoxUserName.Texts;
+            string oldPass = tBoxOldPass.Texts;
+            string newPass = tBoxNewPass.Texts;
+            string reEnterPass = tBoxReNewPass.Texts;
 
             if (!newPass.Equals(reEnterPass))
             {
@@ -53,7 +54,7 @@ namespace CoffeeStore
             }
             else
             {
-                if (AccountDAO.Instance.UpdateAccount(displayName, userName, oldPass, newPass))
+                if (AccountDAO.Instance.UpdateCurAccountInfo(displayName, userName, oldPass, newPass))
                 {
                     if (MessageBox.Show("Cập nhật thông tin thành công") == DialogResult.OK)
                     {
@@ -68,6 +69,57 @@ namespace CoffeeStore
                 }
             }
         }
+        
+        private void CheckchBoxStatus()
+        {
+            // Tên hiển thị
+            if (chBoxAccInfo.Checked == true)
+            {
+                tBoxDisplayName.Enabled = true;
+                tBoxDisplayName.BackColor = Color.White;
+            }
+            else
+            {
+                tBoxDisplayName.Enabled = false;
+                tBoxDisplayName.BackColor = SystemColors.Control;
+                tBoxDisplayName.Texts = accLogined.DisplayName;
+            }
+            // Mật khẩu mới & nhập lại mật khẩu mới
+            if (chBoxPass.Checked == true)
+            {
+                tBoxNewPass.Enabled = true;
+                tBoxReNewPass.Enabled = true;
+                tBoxNewPass.BackColor = Color.White;
+                tBoxReNewPass.BackColor = Color.White;
+            }
+            else
+            {
+                tBoxNewPass.Enabled = false;
+                tBoxReNewPass.Enabled = false;
+                tBoxNewPass.BackColor = SystemColors.Control;
+                tBoxReNewPass.BackColor = SystemColors.Control;
+                tBoxNewPass.Texts = "";
+                tBoxReNewPass.Texts = "";
+            }
+            // Mật khẩu xác thực & btn cập nhật
+            if (chBoxAccInfo.Checked == true || chBoxPass.Checked == true)
+            {
+                tBoxOldPass.Enabled = true;
+                tBoxOldPass.BackColor = Color.White;
+
+                btnUpdate.Enabled = true;
+                btnUpdate.BackgroundColor = Color.SlateBlue;
+            }
+            else
+            {
+                tBoxOldPass.Enabled = false;
+                tBoxOldPass.BackColor = SystemColors.Control;
+
+                btnUpdate.Enabled = false;
+                btnUpdate.BackgroundColor = SystemColors.ButtonShadow;
+            }
+        }
+        #endregion
 
         #region events
         private event EventHandler<AccountEvent> updateInfo;
@@ -77,25 +129,26 @@ namespace CoffeeStore
             remove { updateInfo -= value; }
         }
 
+        private void chBoxAccInfo_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckchBoxStatus();
+        }
+
+        private void chBoxPass_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckchBoxStatus();
+        }
+
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             UpdateAccInfo();
-        }
-        #endregion
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            tBoxDisplayName.Enabled = true;
-            tBoxOldPass.Enabled = true;
-            tBoxNewPass.Enabled = true;
-            tBoxReNewPass.Enabled = true;
-            btnUpdate.Enabled = true;
         }
 
         private void btnOut_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+        #endregion
     }
 
     public class AccountEvent : EventArgs
