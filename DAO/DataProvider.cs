@@ -24,10 +24,10 @@ namespace CoffeeStore.DAO
 
         private DataProvider() { }
 
-        private static string remoteConnectionSTR = @"workstation id=TheCoffeeHouseCNPM.mssql.somee.com;packet size=4096;user id=SunnyBiolie_SQLLogin_1;pwd=wu6kexltjr;data source=TheCoffeeHouseCNPM.mssql.somee.com;persist security info=False;initial catalog=TheCoffeeHouseCNPM";
+        private static string remoteConnectionSTR = @"workstation id=TheCoffeeHouse.mssql.somee.com;packet size=4096;user id=SunnyBiolie_SQLLogin_1;pwd=wu6kexltjr;data source=TheCoffeeHouse.mssql.somee.com;persist security info=False;initial catalog=TheCoffeeHouse";
         private static string localConnectionSTR = @"Data Source=KHOAPHAM;Initial Catalog=tester;Integrated Security=True";
 
-        private string connectionSTR = localConnectionSTR;
+        private string connectionSTR = remoteConnectionSTR;
 
         public DataTable ExecuteQuery(string query, object[] parameters = null)
         {
