@@ -64,7 +64,7 @@
             this.label2.Location = new System.Drawing.Point(15, 117);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(116, 20);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Tên đăng nhập";
             // 
             // label3
@@ -76,7 +76,7 @@
             this.label3.Name = "label3";
             this.label3.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.label3.Size = new System.Drawing.Size(432, 40);
-            this.label3.TabIndex = 2;
+            this.label3.TabIndex = 0;
             this.label3.Text = "Đổi mật khẩu";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -87,7 +87,7 @@
             this.label4.Location = new System.Drawing.Point(15, 352);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(142, 20);
-            this.label4.TabIndex = 3;
+            this.label4.TabIndex = 0;
             this.label4.Text = "Xác thực mật khẩu";
             // 
             // label5
@@ -97,7 +97,7 @@
             this.label5.Location = new System.Drawing.Point(15, 229);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(104, 20);
-            this.label5.TabIndex = 4;
+            this.label5.TabIndex = 0;
             this.label5.Text = "Mật khẩu mới";
             // 
             // label6
@@ -107,7 +107,7 @@
             this.label6.Location = new System.Drawing.Point(15, 281);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(136, 20);
-            this.label6.TabIndex = 5;
+            this.label6.TabIndex = 0;
             this.label6.Text = "Nhập lại mật khẩu";
             // 
             // label7
@@ -120,7 +120,7 @@
             this.label7.Name = "label7";
             this.label7.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.label7.Size = new System.Drawing.Size(432, 40);
-            this.label7.TabIndex = 11;
+            this.label7.TabIndex = 0;
             this.label7.Text = "Sửa thông tin tài khoản";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -131,7 +131,8 @@
             this.chBoxAccInfo.Margin = new System.Windows.Forms.Padding(0);
             this.chBoxAccInfo.Name = "chBoxAccInfo";
             this.chBoxAccInfo.Size = new System.Drawing.Size(30, 40);
-            this.chBoxAccInfo.TabIndex = 15;
+            this.chBoxAccInfo.TabIndex = 0;
+            this.chBoxAccInfo.TabStop = false;
             this.chBoxAccInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chBoxAccInfo.UseVisualStyleBackColor = false;
             this.chBoxAccInfo.CheckedChanged += new System.EventHandler(this.chBoxAccInfo_CheckedChanged);
@@ -143,15 +144,16 @@
             this.chBoxPass.Margin = new System.Windows.Forms.Padding(0);
             this.chBoxPass.Name = "chBoxPass";
             this.chBoxPass.Size = new System.Drawing.Size(30, 40);
-            this.chBoxPass.TabIndex = 16;
+            this.chBoxPass.TabIndex = 0;
+            this.chBoxPass.TabStop = false;
             this.chBoxPass.UseVisualStyleBackColor = false;
             this.chBoxPass.CheckedChanged += new System.EventHandler(this.chBoxPass_CheckedChanged);
             // 
             // tBoxReNewPass
             // 
             this.tBoxReNewPass.BackColor = System.Drawing.SystemColors.Control;
-            this.tBoxReNewPass.BorderColor = System.Drawing.Color.SlateBlue;
-            this.tBoxReNewPass.BorderFocusColor = System.Drawing.Color.PaleVioletRed;
+            this.tBoxReNewPass.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.tBoxReNewPass.BorderFocusColor = System.Drawing.Color.MediumSlateBlue;
             this.tBoxReNewPass.BorderRadius = 0;
             this.tBoxReNewPass.BorderSize = 1;
             this.tBoxReNewPass.Enabled = false;
@@ -167,7 +169,7 @@
             this.tBoxReNewPass.PlaceHolderText = "";
             this.tBoxReNewPass.ReadOnly = false;
             this.tBoxReNewPass.Size = new System.Drawing.Size(250, 33);
-            this.tBoxReNewPass.TabIndex = 21;
+            this.tBoxReNewPass.TabIndex = 3;
             this.tBoxReNewPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tBoxReNewPass.Texts = "";
             this.tBoxReNewPass.UnderlineStyle = false;
@@ -175,8 +177,8 @@
             // tBoxNewPass
             // 
             this.tBoxNewPass.BackColor = System.Drawing.SystemColors.Control;
-            this.tBoxNewPass.BorderColor = System.Drawing.Color.SlateBlue;
-            this.tBoxNewPass.BorderFocusColor = System.Drawing.Color.PaleVioletRed;
+            this.tBoxNewPass.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.tBoxNewPass.BorderFocusColor = System.Drawing.Color.MediumSlateBlue;
             this.tBoxNewPass.BorderRadius = 0;
             this.tBoxNewPass.BorderSize = 1;
             this.tBoxNewPass.Enabled = false;
@@ -192,7 +194,7 @@
             this.tBoxNewPass.PlaceHolderText = "";
             this.tBoxNewPass.ReadOnly = false;
             this.tBoxNewPass.Size = new System.Drawing.Size(250, 33);
-            this.tBoxNewPass.TabIndex = 20;
+            this.tBoxNewPass.TabIndex = 2;
             this.tBoxNewPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tBoxNewPass.Texts = "";
             this.tBoxNewPass.UnderlineStyle = false;
@@ -200,8 +202,8 @@
             // tBoxOldPass
             // 
             this.tBoxOldPass.BackColor = System.Drawing.SystemColors.Control;
-            this.tBoxOldPass.BorderColor = System.Drawing.Color.SlateBlue;
-            this.tBoxOldPass.BorderFocusColor = System.Drawing.Color.PaleVioletRed;
+            this.tBoxOldPass.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.tBoxOldPass.BorderFocusColor = System.Drawing.Color.MediumSlateBlue;
             this.tBoxOldPass.BorderRadius = 0;
             this.tBoxOldPass.BorderSize = 1;
             this.tBoxOldPass.Enabled = false;
@@ -217,7 +219,7 @@
             this.tBoxOldPass.PlaceHolderText = "";
             this.tBoxOldPass.ReadOnly = false;
             this.tBoxOldPass.Size = new System.Drawing.Size(250, 33);
-            this.tBoxOldPass.TabIndex = 19;
+            this.tBoxOldPass.TabIndex = 4;
             this.tBoxOldPass.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tBoxOldPass.Texts = "";
             this.tBoxOldPass.UnderlineStyle = false;
@@ -225,8 +227,8 @@
             // tBoxUserName
             // 
             this.tBoxUserName.BackColor = System.Drawing.SystemColors.Control;
-            this.tBoxUserName.BorderColor = System.Drawing.Color.SlateBlue;
-            this.tBoxUserName.BorderFocusColor = System.Drawing.Color.PaleVioletRed;
+            this.tBoxUserName.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.tBoxUserName.BorderFocusColor = System.Drawing.Color.MediumSlateBlue;
             this.tBoxUserName.BorderRadius = 0;
             this.tBoxUserName.BorderSize = 1;
             this.tBoxUserName.Enabled = false;
@@ -242,7 +244,8 @@
             this.tBoxUserName.PlaceHolderText = "";
             this.tBoxUserName.ReadOnly = false;
             this.tBoxUserName.Size = new System.Drawing.Size(250, 33);
-            this.tBoxUserName.TabIndex = 18;
+            this.tBoxUserName.TabIndex = 0;
+            this.tBoxUserName.TabStop = false;
             this.tBoxUserName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tBoxUserName.Texts = "";
             this.tBoxUserName.UnderlineStyle = false;
@@ -250,8 +253,8 @@
             // tBoxDisplayName
             // 
             this.tBoxDisplayName.BackColor = System.Drawing.SystemColors.Control;
-            this.tBoxDisplayName.BorderColor = System.Drawing.Color.SlateBlue;
-            this.tBoxDisplayName.BorderFocusColor = System.Drawing.Color.PaleVioletRed;
+            this.tBoxDisplayName.BorderColor = System.Drawing.Color.LightSlateGray;
+            this.tBoxDisplayName.BorderFocusColor = System.Drawing.Color.MediumSlateBlue;
             this.tBoxDisplayName.BorderRadius = 0;
             this.tBoxDisplayName.BorderSize = 1;
             this.tBoxDisplayName.Enabled = false;
@@ -267,7 +270,7 @@
             this.tBoxDisplayName.PlaceHolderText = "";
             this.tBoxDisplayName.ReadOnly = false;
             this.tBoxDisplayName.Size = new System.Drawing.Size(250, 33);
-            this.tBoxDisplayName.TabIndex = 17;
+            this.tBoxDisplayName.TabIndex = 1;
             this.tBoxDisplayName.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.tBoxDisplayName.Texts = "";
             this.tBoxDisplayName.UnderlineStyle = false;
@@ -287,7 +290,8 @@
             this.btnUpdate.Location = new System.Drawing.Point(80, 411);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(130, 45);
-            this.btnUpdate.TabIndex = 22;
+            this.btnUpdate.TabIndex = 5;
+            this.btnUpdate.TabStop = false;
             this.btnUpdate.Text = "Cập nhật";
             this.btnUpdate.TextColor = System.Drawing.Color.Ivory;
             this.btnUpdate.UseVisualStyleBackColor = false;
@@ -308,7 +312,8 @@
             this.btnOut.Location = new System.Drawing.Point(240, 411);
             this.btnOut.Name = "btnOut";
             this.btnOut.Size = new System.Drawing.Size(130, 45);
-            this.btnOut.TabIndex = 23;
+            this.btnOut.TabIndex = 6;
+            this.btnOut.TabStop = false;
             this.btnOut.Text = "Thoát";
             this.btnOut.TextColor = System.Drawing.Color.Ivory;
             this.btnOut.UseVisualStyleBackColor = false;
@@ -339,6 +344,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "fAccInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Thông tin tài khoản";

@@ -26,8 +26,8 @@ namespace CoffeeStore.DAO
         {
             List<Food> list = new List<Food>();
 
-            string query = $"select * from MonAn where idDM = {id}";
-            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+            string query = $"select * from MonAn where idDM = @id";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { id });
 
             foreach (DataRow row in data.Rows)
             {

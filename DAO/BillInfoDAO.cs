@@ -31,7 +31,8 @@ namespace CoffeeStore.DAO
         public List<BillInfo> GetListBillInfo(int billID)
         {
             List<BillInfo> billInfos = new List<BillInfo>();
-            DataTable data = DataProvider.Instance.ExecuteQuery($"select * from ChiTietHoaDon where idHoaDon = {billID}");
+            string query = $"select * from ChiTietHoaDon where idHoaDon = @billID";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { billID });
             foreach (DataRow row in data.Rows)
             {
                 BillInfo BillInfo = new BillInfo(row);

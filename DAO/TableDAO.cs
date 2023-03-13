@@ -12,6 +12,7 @@ namespace CoffeeStore.DAO
     {
         public static int tableWidth = 90;
         public static int tableHeight = 90;
+
         private static TableDAO instance;
         public static TableDAO Instance
         {

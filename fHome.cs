@@ -39,6 +39,7 @@ namespace CoffeeStore
             CallLoad();
         }
 
+        #region Methods
         private void CallLoad()
         {
             LoadTables();
@@ -135,6 +136,44 @@ namespace CoffeeStore
             }
         }
 
+        private void AddFoodToTable()
+        {
+            Table table = lViewBill.Tag as Table;
+            if (table == null)
+            {
+                MessageBox.Show("Vui lòng chọn bàn trước khi thêm món", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (cbBoxFood.SelectedItem == null)
+            {
+                MessageBox.Show("Danh mục này chưa được thêm món ăn nào, xin vui lòng chọn món khác hoặc liên hệ với quản trị viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if ((cbBoxFood.SelectedItem as Food).Name == "Món Đã Xóa")
+            {
+                MessageBox.Show("Món ăn này không thể được thêm vào vì lý do kỹ thuật", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(table.Id);
+            int idFood = (cbBoxFood.SelectedItem as Food).Id;
+            int foodCount = (int)numUD_FoodCount.Value;
+
+            // Bàn chưa tồn tại Hóa Đơn
+            if (idBill == -1)
+            {
+                BillDAO.Instance.InsertBill(table.Id);
+                BillInfoDAO.Instance.InsertBillInfo(BillDAO.Instance.GetMaxIDBill(), idFood, foodCount);
+            }
+            else
+            {
+                BillInfoDAO.Instance.InsertBillInfo(idBill, idFood, foodCount);
+            }
+
+            numUD_FoodCount.Value = 1;
+            ShowBill(table.Id);
+            ReloadTable();
+        }
+
         /// <summary>
         /// Hiển thị hóa đơn chưa thanh toán của một bàn cụ thể
         /// </summary>
@@ -167,6 +206,7 @@ namespace CoffeeStore
             CultureInfo culture = new CultureInfo("vi-VN");
             tBoxTotalPrice.Texts = totalBill.ToString("c", culture);
         }
+        #endregion
 
         #region Events
         /// <summary>
@@ -324,35 +364,7 @@ namespace CoffeeStore
 
         private void btnAddFood_Click(object sender, EventArgs e)
         {
-            Table table = lViewBill.Tag as Table;
-            if (table == null)
-            {
-                MessageBox.Show("Vui lòng chọn bàn trước khi thêm món", "Thông báo");
-                return;
-            }
-            if (cbBoxFood.SelectedItem == null)
-            {
-                MessageBox.Show("Danh mục này chưa được thêm món ăn nào, xin vui lòng chọn món khác hoặc liên hệ với quản trị viên", "Thông báo");
-                return;
-            }
-            int idBill = BillDAO.Instance.GetUncheckBillIDByTableID(table.Id);
-            int idFood = (cbBoxFood.SelectedItem as Food).Id;
-            int foodCount = (int)numUD_FoodCount.Value;
-
-            // Bàn chưa tồn tại Hóa Đơn
-            if (idBill == -1)
-            {
-                BillDAO.Instance.InsertBill(table.Id);
-                BillInfoDAO.Instance.InsertBillInfo(BillDAO.Instance.GetMaxIDBill(), idFood, foodCount);
-            }
-            else
-            {
-                BillInfoDAO.Instance.InsertBillInfo(idBill, idFood, foodCount);
-            }
-
-            numUD_FoodCount.Value = 1;
-            ShowBill(table.Id);
-            ReloadTable();
+            AddFoodToTable();
         }
 
         #endregion

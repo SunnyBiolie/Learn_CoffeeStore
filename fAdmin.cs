@@ -148,22 +148,27 @@ namespace CoffeeStore
             string foodName = tBoxFoodName.Text;
             int categoryID = (cBoxFoodCategory.SelectedItem as Category).Id;
             float foodPrice = Convert.ToSingle(nudFoodPrice.Value);
+            string categoryName = (cBoxFoodCategory.SelectedItem as Category).Name;
 
             List<InterfaceFoodInfo> list = InterfaceFoodInfoDAO.Instance.GetListInterfaceFoodInfo();
             foreach (InterfaceFoodInfo item in list)
             {
-                if (item.FoodName == foodName && item.CategoryName == (cBoxFoodCategory.SelectedItem as Category).Name)
+                if (item.FoodName == foodName)
                 {
-                    ShowMessError($"\"{foodName}\" đã tồn tại trong danh mục \"{item.CategoryName}\"");
+                    ShowMessError($"\"{foodName}\" đã tồn tại trong cơ sở dữ liệu");
                     return;
                 }
             }
+            if (categoryName == "Đã Xóa"){
+                ShowMessError("Không thể thêm món mới vào danh mục \"Đã Xóa\" vì lý do kỹ thuật");
+                return;
+            }
 
-            if (ShowMessQuestion($"Thêm mới \"{foodName}\" vào danh mục \"{(cBoxFoodCategory.SelectedItem as Category).Name}\"?"))
+            if (ShowMessQuestion($"Thêm mới \"{foodName}\" vào danh mục \"{categoryName}\"?"))
             {
                 if (FoodDAO.Instance.InsertFood(foodName, categoryID, foodPrice))
                 {
-                    ShowMessSuccess($"Thêm thành công \"{foodName}\" vào danh mục \"{(cBoxFoodCategory.SelectedItem as Category).Name}\"");
+                    ShowMessSuccess($"Thêm thành công \"{foodName}\" vào danh mục \"{categoryName}\"");
 
                     LoadListFoods(GetOrderByFromRdBtn());
                     if (insertFood != null)
@@ -181,6 +186,12 @@ namespace CoffeeStore
             int categoryID = (cBoxFoodCategory.SelectedItem as Category).Id;
             float foodPrice = Convert.ToSingle(nudFoodPrice.Value);
             int foodID = Convert.ToInt32(tBoxFoodID.Text);
+
+            if (foodName == "Món Đã Xóa")
+            {
+                ShowMessError("Không thể thay đổi thông tin \"Món Đã Xóa\" vì lý do kỹ thuật");
+                return;
+            }
 
             if (ShowMessQuestion($"Thay đổi thông tin cho \"{foodName}\"?"))
             {
@@ -201,8 +212,15 @@ namespace CoffeeStore
         private void RemoveFood()
         {
             int foodID = Convert.ToInt32(tBoxFoodID.Text);
+            string foodName = tBoxFoodName.Text;
 
-            if (ShowMessQuestion($"Xóa món sẽ xóa các Chi Tiết Hóa Đơn có món \"{tBoxFoodName.Text}\"\nVẫn xóa món \"{tBoxFoodName.Text}\" khỏi danh mục \"{(cBoxFoodCategory.SelectedItem as Category).Name}\"?"))
+            if (foodName == "Món Đã Xóa")
+            {
+                ShowMessError("Không thể xóa \"Món Đã Xóa\" vì lý do kỹ thuật");
+                return;
+            }
+
+            if (ShowMessQuestion($"Xóa món \"{foodName}\" khỏi danh mục \"{(cBoxFoodCategory.SelectedItem as Category).Name}\"?"))
             {
                 if (FoodDAO.Instance.DeleteFood(foodID))
                 {
@@ -268,6 +286,12 @@ namespace CoffeeStore
             string categoryName = tBoxCategoryName.Text;
             int categoryId = Convert.ToInt32(tBoxCategoryID.Text);
 
+            if (categoryName == "Đã Xóa")
+            {
+                ShowMessError("Không thể thay đổi thông tin danh mục \"Đã Xóa\" vì lý do kỹ thuật");
+                return;
+            }
+
             if (ShowMessQuestion($"Thay đổi tên danh mục có ID = {categoryId} thành \"{categoryName}\""))
             {
                 if (CategoryDAO.Instance.EditCategory(categoryName, categoryId))
@@ -289,12 +313,19 @@ namespace CoffeeStore
         private void RemoveCategory()
         {
             int categoryId = Convert.ToInt32(tBoxCategoryID.Text);
+            string categoryName = tBoxCategoryName.Text;
 
-            if (ShowMessQuestion($"Xóa danh mục \"{tBoxCategoryName.Text}\"?"))
+            if (categoryName == "Đã Xóa")
+            {
+                ShowMessError("Không thể xóa danh mục \"Đã Xóa\" vì lý do kỹ thuật");
+                return;
+            }
+
+            if (ShowMessQuestion($"Xóa danh mục \"{categoryName}\"?"))
             {
                 if (CategoryDAO.Instance.DeleteCategory(categoryId))
                 {
-                    ShowMessSuccess($"Xóa danh mục \"{tBoxCategoryName.Text}\" thành công");
+                    ShowMessSuccess($"Xóa danh mục \"{categoryName}\" thành công");
                     LoadCategoriesList();
                     LoadListFoods(GetOrderByFromRdBtn());
                     LoadCategoryComboBox(cBoxFoodCategory);/*reload*/
@@ -304,7 +335,7 @@ namespace CoffeeStore
                 }
                 else
                 {
-                    ShowMessError($"Vui lòng xóa các món ăn đang thuộc trong danh mục \"{tBoxCategoryName.Text}\" trước");
+                    ShowMessError($"Vui lòng xóa các món ăn đang thuộc trong danh mục \"{categoryName}\" trước");
                 }
             }
         }
@@ -491,7 +522,7 @@ namespace CoffeeStore
             string displayName = tBoxDisplayName.Text;
             int type = (cBoxTypeAcc.SelectedItem as TypeAcc).IdType;
 
-            if (ShowMessQuestion($"Bạn muốn thay đổi thông tin tài khoản có tên đăng nhập \"{userName}\"?"))
+            if (ShowMessQuestion($"Bạn muốn thay đổi thông tin tài khoản?"))
             {
                 if (AccountDAO.Instance.EditAccInfo(userName, displayName, type))
                 {

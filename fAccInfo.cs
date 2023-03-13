@@ -48,25 +48,29 @@ namespace CoffeeStore
             string newPass = tBoxNewPass.Texts;
             string reEnterPass = tBoxReNewPass.Texts;
 
-            if (!newPass.Equals(reEnterPass))
+            if (chBoxPass.Checked == true && (newPass == null || newPass == ""))
+            {
+                MessageBox.Show("Mật khẩu mới không được để trống", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (chBoxPass.Checked == true && !newPass.Equals(reEnterPass))
             {
                 MessageBox.Show("Nhập lại mật khẩu không chính xác, xin vui lòng kiểm tra lại", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (AccountDAO.Instance.UpdateCurAccountInfo(displayName, userName, oldPass, newPass))
+            {
+                if (MessageBox.Show("Cập nhật thông tin thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    btnOut_Click(new object[] { }, new EventArgs());
+                }
+                if (updateInfo != null)
+                    updateInfo(this, new AccountEvent(AccountDAO.Instance.GetAccByUserName(userName)));
             }
             else
             {
-                if (AccountDAO.Instance.UpdateCurAccountInfo(displayName, userName, oldPass, newPass))
-                {
-                    if (MessageBox.Show("Cập nhật thông tin thành công") == DialogResult.OK)
-                    {
-                        btnOut_Click(new object[] { }, new EventArgs());
-                    }
-                    if (updateInfo != null)
-                        updateInfo(this, new AccountEvent(AccountDAO.Instance.GetAccByUserName(userName)));
-                }
-                else
-                {
-                    MessageBox.Show("Xác thực mật khẩu không thành công, vui lòng kiểm tra lại mật khẩu đã nhập");
-                }
+                MessageBox.Show("Xác thực mật khẩu không thành công, vui lòng kiểm tra lại mật khẩu đã nhập", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         

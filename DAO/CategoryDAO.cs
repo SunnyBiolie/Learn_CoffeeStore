@@ -42,8 +42,8 @@ namespace CoffeeStore.DAO
         {
             Category category = null;
 
-            string query = $"select * from DanhMuc where ID = {id}";
-            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+            string query = $"select * from DanhMuc where ID = @id";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { id });
 
             foreach (DataRow row in data.Rows)
             {
@@ -60,6 +60,7 @@ namespace CoffeeStore.DAO
 
             return result > 0;
         }
+        
         public bool EditCategory(string categoryName, int categoryId)
         {
             string query = $"update DanhMuc set TenDM = @categoryName where ID = @categoryId";
@@ -67,12 +68,13 @@ namespace CoffeeStore.DAO
 
             return result > 0;
         }
+        
         public bool DeleteCategory(int categoryId)
         {
-            string query1 = $"select ma.TenMon from DanhMuc as dm, MonAn as ma where ma.idDM = dm.ID and dm.ID = {categoryId}";
-            DataTable data = DataProvider.Instance.ExecuteQuery(query1);
+            string query1 = $"select ma.TenMon from DanhMuc as dm, MonAn as ma where ma.idDM = dm.ID and dm.ID = @categoryId";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query1, new object[] { categoryId });
 
-            if (data.Rows.Count > 0)
+            if (data.Rows.Count > 0)    // Đang tồn tại món ăn thuộc danh mục muốn xóa
             {
                 return false;
             }

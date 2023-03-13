@@ -133,6 +133,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.tabCAdmin.SuspendLayout();
             this.tabBill.SuspendLayout();
             this.grBoxDetails.SuspendLayout();
@@ -362,6 +363,7 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.label16);
             this.panel6.Controls.Add(this.csBtnStatistical);
             this.panel6.Controls.Add(this.dtPickerToDate);
             this.panel6.Controls.Add(this.dtPickerFromDate);
@@ -867,11 +869,11 @@
             // 
             this.dtGVCategory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dtGVCategory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtGVCategory.Location = new System.Drawing.Point(0, 0);
+            this.dtGVCategory.Location = new System.Drawing.Point(3, 3);
             this.dtGVCategory.Name = "dtGVCategory";
             this.dtGVCategory.RowHeadersWidth = 51;
             this.dtGVCategory.RowTemplate.Height = 24;
-            this.dtGVCategory.Size = new System.Drawing.Size(502, 505);
+            this.dtGVCategory.Size = new System.Drawing.Size(496, 502);
             this.dtGVCategory.TabIndex = 0;
             // 
             // tabTable
@@ -906,17 +908,17 @@
             // 
             // tBoxTableStatus
             // 
-            this.tBoxTableStatus.Location = new System.Drawing.Point(187, 10);
+            this.tBoxTableStatus.Location = new System.Drawing.Point(170, 10);
             this.tBoxTableStatus.Name = "tBoxTableStatus";
             this.tBoxTableStatus.ReadOnly = true;
-            this.tBoxTableStatus.Size = new System.Drawing.Size(205, 24);
+            this.tBoxTableStatus.Size = new System.Drawing.Size(217, 24);
             this.tBoxTableStatus.TabIndex = 2;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(13, 8);
+            this.label9.Location = new System.Drawing.Point(20, 8);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(100, 25);
             this.label9.TabIndex = 0;
@@ -933,16 +935,16 @@
             // 
             // tBoxTableName
             // 
-            this.tBoxTableName.Location = new System.Drawing.Point(187, 10);
+            this.tBoxTableName.Location = new System.Drawing.Point(170, 10);
             this.tBoxTableName.Name = "tBoxTableName";
-            this.tBoxTableName.Size = new System.Drawing.Size(205, 24);
+            this.tBoxTableName.Size = new System.Drawing.Size(217, 24);
             this.tBoxTableName.TabIndex = 1;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(13, 8);
+            this.label5.Location = new System.Drawing.Point(20, 8);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(85, 25);
             this.label5.TabIndex = 0;
@@ -959,17 +961,17 @@
             // 
             // tBoxTableID
             // 
-            this.tBoxTableID.Location = new System.Drawing.Point(187, 10);
+            this.tBoxTableID.Location = new System.Drawing.Point(170, 10);
             this.tBoxTableID.Name = "tBoxTableID";
             this.tBoxTableID.ReadOnly = true;
-            this.tBoxTableID.Size = new System.Drawing.Size(205, 24);
+            this.tBoxTableID.Size = new System.Drawing.Size(220, 24);
             this.tBoxTableID.TabIndex = 1;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(13, 8);
+            this.label6.Location = new System.Drawing.Point(20, 8);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(31, 25);
             this.label6.TabIndex = 0;
@@ -988,7 +990,7 @@
             // 
             // btnDeleteTable
             // 
-            this.btnDeleteTable.Location = new System.Drawing.Point(216, 3);
+            this.btnDeleteTable.Location = new System.Drawing.Point(215, 3);
             this.btnDeleteTable.Name = "btnDeleteTable";
             this.btnDeleteTable.Size = new System.Drawing.Size(85, 50);
             this.btnDeleteTable.TabIndex = 4;
@@ -998,7 +1000,7 @@
             // 
             // btnViewTable
             // 
-            this.btnViewTable.Location = new System.Drawing.Point(321, 3);
+            this.btnViewTable.Location = new System.Drawing.Point(319, 3);
             this.btnViewTable.Name = "btnViewTable";
             this.btnViewTable.Size = new System.Drawing.Size(85, 50);
             this.btnViewTable.TabIndex = 3;
@@ -1007,7 +1009,7 @@
             // 
             // btnAdjustTable
             // 
-            this.btnAdjustTable.Location = new System.Drawing.Point(111, 3);
+            this.btnAdjustTable.Location = new System.Drawing.Point(112, 3);
             this.btnAdjustTable.Name = "btnAdjustTable";
             this.btnAdjustTable.Size = new System.Drawing.Size(85, 50);
             this.btnAdjustTable.TabIndex = 2;
@@ -1017,7 +1019,7 @@
             // 
             // btnAddTable
             // 
-            this.btnAddTable.Location = new System.Drawing.Point(11, 3);
+            this.btnAddTable.Location = new System.Drawing.Point(13, 3);
             this.btnAddTable.Name = "btnAddTable";
             this.btnAddTable.Size = new System.Drawing.Size(85, 50);
             this.btnAddTable.TabIndex = 0;
@@ -1261,6 +1263,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Thông tin tài khoản";
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(280, 10);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(44, 24);
+            this.label16.TabIndex = 2;
+            this.label16.Text = "đến";
+            // 
             // fAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1268,6 +1280,7 @@
             this.ClientSize = new System.Drawing.Size(982, 553);
             this.Controls.Add(this.tabCAdmin);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "fAdmin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Cửa sổ quản lý";
@@ -1278,6 +1291,7 @@
             this.panel28.ResumeLayout(false);
             this.panel28.PerformLayout();
             this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtGVBill)).EndInit();
             this.tabFood.ResumeLayout(false);
@@ -1442,5 +1456,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label16;
     }
 }

@@ -31,7 +31,8 @@ namespace CoffeeStore.DAO
         /// <returns>billID || -1</returns>
         public int GetUncheckBillIDByTableID(int tableID)
         {
-            DataTable data = DataProvider.Instance.ExecuteQuery($"select * from HoaDon where idBan = {tableID} and TrangThai = 0");
+            string query = $"select * from HoaDon where idBan = @tableID and TrangThai = 0";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { tableID });
             if (data.Rows.Count > 0)
             {
                 Bill bill = new Bill(data.Rows[0]);
@@ -44,8 +45,10 @@ namespace CoffeeStore.DAO
 
         public void InsertBill(int idTable)
         {
-            DataProvider.Instance.ExecuteNonQuery("exec USP_InsertBill @idBan", new object[] {idTable});
+            string query = "exec USP_InsertBill @idBan";
+            DataProvider.Instance.ExecuteNonQuery(query, new object[] {idTable});
         }
+        
         /// <summary>
         /// Được gọi: btnAddFood_Click / fHome.cs
         /// </summary>
@@ -54,10 +57,11 @@ namespace CoffeeStore.DAO
         {
             return (int)DataProvider.Instance.ExecuteScalar("select max(ID) from HoaDon");
         }
+        
         public void CheckOut(int idBill, float totalPrice)
         {
-            string query = $"update HoaDon set ThoiGianRa = GETDATE(), TrangThai = 1, TongTien = {totalPrice} where ID = {idBill}";
-            DataProvider.Instance.ExecuteNonQuery(query);
+            string query = $"update HoaDon set ThoiGianRa = GETDATE(), TrangThai = 1, TongTien = @totalPrice where ID = @idBill";
+            DataProvider.Instance.ExecuteNonQuery(query, new object[] { totalPrice, idBill });
         }
 
         public DataTable GetListBillByDate(DateTime dateCheckIn, DateTime dateCheckOut)
@@ -65,6 +69,7 @@ namespace CoffeeStore.DAO
             string query = $"exec USP_GetListBillByDate @NgayVao , @NgayRa";
             return DataProvider.Instance.ExecuteQuery(query, new object[] { dateCheckIn, dateCheckOut });
         }
+        
         public void UpdateBillToDeletedTableByTableID(int tableID)
         {
             string query = "update HoaDon set idBan = 11 where idBan = @tableID";

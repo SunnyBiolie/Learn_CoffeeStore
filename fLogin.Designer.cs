@@ -164,16 +164,16 @@
             this.csBtnLogin.BackColor = System.Drawing.Color.MediumSlateBlue;
             this.csBtnLogin.BackgroundColor = System.Drawing.Color.MediumSlateBlue;
             this.csBtnLogin.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.csBtnLogin.BorderRadius = 40;
+            this.csBtnLogin.BorderRadius = 0;
             this.csBtnLogin.BorderSize = 0;
             this.csBtnLogin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.csBtnLogin.FlatAppearance.BorderSize = 0;
             this.csBtnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.csBtnLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.csBtnLogin.ForeColor = System.Drawing.Color.Ivory;
-            this.csBtnLogin.Location = new System.Drawing.Point(215, 440);
+            this.csBtnLogin.Location = new System.Drawing.Point(212, 440);
             this.csBtnLogin.Name = "csBtnLogin";
-            this.csBtnLogin.Size = new System.Drawing.Size(170, 40);
+            this.csBtnLogin.Size = new System.Drawing.Size(176, 44);
             this.csBtnLogin.TabIndex = 3;
             this.csBtnLogin.TabStop = false;
             this.csBtnLogin.Text = "Đăng nhập";
@@ -194,6 +194,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pBoxBigPic);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "fLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đăng nhập";
