@@ -19,6 +19,7 @@ namespace CoffeeStore
         BindingSource revenueListInfo = new BindingSource();
         BindingSource listFoods = new BindingSource();
         BindingSource categoriesList = new BindingSource();
+        BindingSource tablesList = new BindingSource();
         BindingSource accountsList = new BindingSource();
 
         public Account loginedAccount;
@@ -36,21 +37,25 @@ namespace CoffeeStore
             dtGVBill.DataSource = revenueListInfo;
             dtGVFood.DataSource = listFoods;
             dtGVCategory.DataSource = categoriesList;
+            dtGVTable.DataSource = tablesList;
             dtGVAcc.DataSource = accountsList;
 
-
             LoadDTPickerForStatistical();
+
             LoadListBillByDate(dtPickerFromDate.Value, dtPickerToDate.Value);
-            LoadListFoods();
+            LoadListFoods(GetOrderByFromRdBtn());
             LoadCategoriesList();
+            LoadTablesList();
             LoadAccountsList();
+
             AddRevenueBinding();
             AddFoodBinding();
             AddCategoryBinding();
+            AddTableBinding();
             AddAccountBinding();
         }
 
-        #region Doanh thu
+        #region Doanh thu Methods
         private void LoadDTPickerForStatistical()
         {
             DateTime today = DateTime.Now;
@@ -67,15 +72,14 @@ namespace CoffeeStore
             {
                 totalRevenue += item.TotalPrice;
             }
-            tBoxTotalRevenue.Text = totalRevenue.ToString("c", new CultureInfo("vi-VN"));
+            tBoxTotalRevenue.Texts = totalRevenue.ToString("c", new CultureInfo("vi-VN"));
         }
-
         private void AddRevenueBinding()
         {
             tBoxBillID.DataBindings.Add(new Binding("Text", dtGVBill.DataSource, "Id", true, DataSourceUpdateMode.Never));
-            csBtnTableName.DataBindings.Add(new Binding("Text", dtGVBill.DataSource, "TableName", true, DataSourceUpdateMode.Never));
-            //// Lưu vào tag rồi chuyển từ object conctrol sang string "c" trong text ở hàm ShowRevenueInfo()
-            tBoxTotalPrice.DataBindings.Add(new Binding("Tag", dtGVBill.DataSource, "TotalPrice", true, DataSourceUpdateMode.Never));
+            lblTableName.DataBindings.Add(new Binding("Text", dtGVBill.DataSource, "TableName", true, DataSourceUpdateMode.Never));
+            // Lưu vào tag rồi chuyển từ object conctrol sang string "c" trong text ở hàm ShowRevenueDetails() -> Cập nhật bị delay nên không dùng đc
+            tBoxTotalPrice.DataBindings.Add(new Binding("Texts", dtGVBill.DataSource, "TotalPrice", true, DataSourceUpdateMode.Never));
         }
         private void ShowRevenueDetails()
         {
@@ -90,29 +94,15 @@ namespace CoffeeStore
                 lViewDetail.Items.Add(listViewItem);
             }
 
-            tBoxTotalPrice.Text = Convert.ToSingle(tBoxTotalPrice.Tag).ToString("c", new CultureInfo("vi-VN"));
-        }
-        #region account methods
-        private void ResetPass()
-        {
-            string userName = tBoxUserName.Text;
-            if (AccountDAO.Instance.ResetPass(userName))
-            {
-                MessageBox.Show($"Đặt lại mật khẩu thành mật khẩu mặc định thành công");
-            }
-            else
-                MessageBox.Show($"Đặt lại mật khẩu thất bại");
+            //tBoxTotalPrice.Texts = Convert.ToSingle(tBoxTotalPrice.Tag).ToString("#,#", new CultureInfo("vi-VN"));
         }
         #endregion
 
-        #endregion
-
-
-        private void LoadListFoods()
+        #region Food View / Methods
+        private void LoadListFoods(string orderBy)
         {
-            listFoods.DataSource = InterfaceFoodInfoDAO.Instance.GetListInterfaceFoodInfo();
+            listFoods.DataSource = InterfaceFoodInfoDAO.Instance.GetListInterfaceFoodInfo(orderBy);
         }
-
         private void AddFoodBinding()
         {
             tBoxFoodID.DataBindings.Add(new Binding("Text", dtGVFood.DataSource, "ID", true, DataSourceUpdateMode.Never));
@@ -120,7 +110,6 @@ namespace CoffeeStore
             LoadCategoryComboBox(cBoxFoodCategory);
             nudFoodPrice.DataBindings.Add(new Binding("Value", dtGVFood.DataSource, "FoodPrice", true, DataSourceUpdateMode.Never));
         }
-
         /// <summary>
         /// Load list of categorys for ComboBox's source ans set DisplayMember of this cbBox
         /// </summary>
@@ -130,15 +119,108 @@ namespace CoffeeStore
             cb.DataSource = CategoryDAO.Instance.GetListCategory();
             cb.DisplayMember = "Name";
         }
-
-        private List<InterfaceFoodInfo> FindFoodByName(string approName)
+        private List<InterfaceFoodInfo> FindFoodByName(string approName, string orderBy)
         {
-            List<InterfaceFoodInfo> list = InterfaceFoodInfoDAO.Instance.GetListFoodByName(approName);
+            List<InterfaceFoodInfo> list = InterfaceFoodInfoDAO.Instance.GetListFoodByName(approName, orderBy);
 
             return list;
         }
+        private string GetOrderByFromRdBtn()
+        {
+            string orderBy = "";
+            if (rdBtnID.Checked)
+                orderBy = "order by ID";
 
-        #region CategoryView
+            if (rdBtnFoodName.Checked)
+                orderBy = "order by TenMon";
+
+            if (rdBtnCategoryName.Checked)
+                orderBy = "order by TenDM";
+
+            if (rdBtnPrice.Checked)
+                orderBy = "order by GiaMonAn";
+
+            return orderBy;
+        }
+        
+        private void AddFood()
+        {
+            string foodName = tBoxFoodName.Text;
+            int categoryID = (cBoxFoodCategory.SelectedItem as Category).Id;
+            float foodPrice = Convert.ToSingle(nudFoodPrice.Value);
+
+            List<InterfaceFoodInfo> list = InterfaceFoodInfoDAO.Instance.GetListInterfaceFoodInfo();
+            foreach (InterfaceFoodInfo item in list)
+            {
+                if (item.FoodName == foodName && item.CategoryName == (cBoxFoodCategory.SelectedItem as Category).Name)
+                {
+                    ShowMessError($"\"{foodName}\" đã tồn tại trong danh mục \"{item.CategoryName}\"");
+                    return;
+                }
+            }
+
+            if (ShowMessQuestion($"Thêm mới \"{foodName}\" vào danh mục \"{(cBoxFoodCategory.SelectedItem as Category).Name}\"?"))
+            {
+                if (FoodDAO.Instance.InsertFood(foodName, categoryID, foodPrice))
+                {
+                    ShowMessSuccess($"Thêm thành công \"{foodName}\" vào danh mục \"{(cBoxFoodCategory.SelectedItem as Category).Name}\"");
+
+                    LoadListFoods(GetOrderByFromRdBtn());
+                    if (insertFood != null)
+                        insertFood(this, new EventArgs());
+                }
+                else
+                {
+                    ShowMessError($"Đã xảy ra lỗi khi thêm món");
+                }
+            }
+        }
+        private void EditFoodInfo()
+        {
+            string foodName = tBoxFoodName.Text;
+            int categoryID = (cBoxFoodCategory.SelectedItem as Category).Id;
+            float foodPrice = Convert.ToSingle(nudFoodPrice.Value);
+            int foodID = Convert.ToInt32(tBoxFoodID.Text);
+
+            if (ShowMessQuestion($"Thay đổi thông tin cho \"{foodName}\"?"))
+            {
+                if (FoodDAO.Instance.EditFoodInfo(foodName, categoryID, foodPrice, foodID))
+                {
+                    ShowMessSuccess($"Thay đổi thông tin \"{foodName}\" thành công");
+
+                    LoadListFoods(GetOrderByFromRdBtn());
+                    if (editFood != null)
+                        editFood(this, new EventArgs());
+                }
+                else
+                {
+                    ShowMessError($"Đã xảy ra lỗi khi thay đổi thông tin món");
+                }
+            }
+        }
+        private void RemoveFood()
+        {
+            int foodID = Convert.ToInt32(tBoxFoodID.Text);
+
+            if (ShowMessQuestion($"Xóa món sẽ xóa các Chi Tiết Hóa Đơn có món \"{tBoxFoodName.Text}\"\nVẫn xóa món \"{tBoxFoodName.Text}\" khỏi danh mục \"{(cBoxFoodCategory.SelectedItem as Category).Name}\"?"))
+            {
+                if (FoodDAO.Instance.DeleteFood(foodID))
+                {
+                    ShowMessSuccess($"Xóa món thành công");
+
+                    LoadListFoods(GetOrderByFromRdBtn());
+                    if (deleteFood != null)
+                        deleteFood(this, new EventArgs());
+                }
+                else
+                {
+                    ShowMessError($"Đã xảy ra lỗi khi xóa món");
+                }
+            }
+        }
+        #endregion
+
+        #region CategoryView / Methods
         private void LoadCategoriesList()
         {
             categoriesList.DataSource = CategoryDAO.Instance.GetListCategory();
@@ -148,9 +230,194 @@ namespace CoffeeStore
             tBoxCategoryID.DataBindings.Add("Text", dtGVCategory.DataSource, "Id", true, DataSourceUpdateMode.Never);
             tBoxCategoryName.DataBindings.Add("Text", dtGVCategory.DataSource, "Name", true, DataSourceUpdateMode.Never);
         }
+        
+        private void AddCategory()
+        {
+            string categoryName = tBoxCategoryName.Text;
+
+            List<Category> list = CategoryDAO.Instance.GetListCategory();
+            foreach (Category item in list)
+            {
+                if (item.Name == categoryName)
+                {
+                    ShowMessError($"Đã tồn tại danh mục {categoryName}\nXin vui lòng chọn danh mục khác");
+                    return;
+                }
+            }
+
+            if (ShowMessQuestion($"Thêm mới danh mục \"{categoryName}\"?"))
+            {
+                if (CategoryDAO.Instance.InsertCategory(categoryName))
+                {
+                    ShowMessSuccess($"Thêm thành công danh mục {categoryName}");
+                    LoadCategoriesList();
+                    LoadListFoods(GetOrderByFromRdBtn());
+                    LoadCategoryComboBox(cBoxFoodCategory);
+
+                    if (insertCategory != null)
+                        insertCategory(this, new EventArgs());
+                }
+                else
+                {
+                    ShowMessError("Đã xảy ra lỗi khi thêm danh mục món ăn");
+                }
+            }
+        }
+        private void EditCategoryInfo()
+        {
+            string categoryName = tBoxCategoryName.Text;
+            int categoryId = Convert.ToInt32(tBoxCategoryID.Text);
+
+            if (ShowMessQuestion($"Thay đổi tên danh mục có ID = {categoryId} thành \"{categoryName}\""))
+            {
+                if (CategoryDAO.Instance.EditCategory(categoryName, categoryId))
+                {
+                    ShowMessSuccess($"Thay đổi thành công thông tin danh mục");
+                    LoadCategoriesList();
+                    LoadListFoods(GetOrderByFromRdBtn());
+                    LoadCategoryComboBox(cBoxFoodCategory);
+
+                    if (editCategory != null)
+                        editCategory(this, new EventArgs());
+                }
+                else
+                {
+                    ShowMessError("Đã xảy ra lỗi khi thay đổi thông tin danh mục món ăn");
+                }
+            }
+        }
+        private void RemoveCategory()
+        {
+            int categoryId = Convert.ToInt32(tBoxCategoryID.Text);
+
+            if (ShowMessQuestion($"Xóa danh mục \"{tBoxCategoryName.Text}\"?"))
+            {
+                if (CategoryDAO.Instance.DeleteCategory(categoryId))
+                {
+                    ShowMessSuccess($"Xóa danh mục \"{tBoxCategoryName.Text}\" thành công");
+                    LoadCategoriesList();
+                    LoadListFoods(GetOrderByFromRdBtn());
+                    LoadCategoryComboBox(cBoxFoodCategory);/*reload*/
+
+                    if (deleteCategory != null)
+                        deleteCategory(this, new EventArgs());
+                }
+                else
+                {
+                    ShowMessError($"Vui lòng xóa các món ăn đang thuộc trong danh mục \"{tBoxCategoryName.Text}\" trước");
+                }
+            }
+        }
         #endregion
 
-        #region AccountView
+        #region Table View / Methods
+        private void LoadTablesList()
+        {
+            tablesList.DataSource = TableDAO.Instance.GetTablesList();
+        }
+        private void AddTableBinding()
+        {
+            tBoxTableID.DataBindings.Add(new Binding("Text", dtGVTable.DataSource, "Id"));
+            tBoxTableName.DataBindings.Add(new Binding("Text", dtGVTable.DataSource, "Name"));
+            tBoxTableStatus.DataBindings.Add(new Binding("Text", dtGVTable.DataSource, "Status"));
+        }
+        private void AddTable()
+        {
+            string tableName = tBoxTableName.Text;
+
+            if (CheckExistsTable(tableName)) return;
+
+            if (ShowMessQuestion($"Thêm mới bàn \"{tableName}\"?"))
+            {
+                if (TableDAO.Instance.AddTable(tableName))
+                {
+                    ShowMessSuccess($"Thêm thành công \"{tableName}\"");
+                    LoadTablesList();
+
+                    if (insertTable != null)
+                        insertTable(this, new EventArgs());
+                }   
+                else
+                {
+                    ShowMessError("Đã xảy ra lỗi khi thêm bàn");
+                }
+            }
+        }
+        private void EditTableInfo()
+        {
+            int tableID = Convert.ToInt32(tBoxTableID.Text);
+            string tableName = tBoxTableName.Text;
+
+            if (CheckExistsTable(tableName)) return;
+
+            if (ShowMessQuestion($"Thay đổi thông tin cho \"{tableName}\"?"))
+            {
+                if (TableDAO.Instance.EditTableInfo(tableID, tableName))
+                {
+                    ShowMessSuccess($"Thay đổi thông tin \"{tableName}\" thành công");
+                    LoadTablesList();
+                    LoadListBillByDate(dtPickerFromDate.Value, dtPickerToDate.Value);
+
+                    if (editTable != null)
+                        editTable(this, new EventArgs());
+                }
+                else
+                {
+                    ShowMessError($"Đã xảy ra lỗi khi thay đổi thông tin bàn");
+                }
+            }
+        }
+        private bool CheckExistsTable(string tableName)
+        {
+            List<Table> list = TableDAO.Instance.GetTablesList();
+            foreach (Table table in list)
+            {
+                if (tableName == table.Name)
+                {
+                    ShowMessError($"Đã tồn tại bàn có tên \"{tableName}\"");
+                    return true;
+                }
+            }
+            return false;
+        }
+        private void RemoveTable()
+        {
+            int tableID = Convert.ToInt32(tBoxTableID.Text);
+            string tableName = tBoxTableName.Text;
+            string tableStatus = tBoxTableStatus.Text;
+            
+            if (tableName == "Bàn Đã Xóa")
+            {
+                ShowMessError($"Không thể thực hiện yêu cầu, \"{tableName}\" là không thể xóa");
+                return;
+            }
+
+            if (tableStatus == "Có khách")
+            {
+                ShowMessError($"\"{tableName}\" đang có khách, không thể xóa");
+                return;
+            }
+
+            if (ShowMessQuestion($"Xóa bàn \"{tableName}\"?"))
+            {
+                if (TableDAO.Instance.RemoveTable(tableID))
+                {
+                    ShowMessSuccess($"Xóa bàn thành công");
+                    LoadTablesList();
+                    LoadListBillByDate(dtPickerFromDate.Value, dtPickerToDate.Value);
+
+                    if (deleteTable != null)
+                        deleteTable(this, new EventArgs());
+                }
+                else
+                {
+                    ShowMessError($"Đã xảy ra lỗi trong lúc xóa bàn");
+                }
+            }
+        }
+        #endregion
+
+        #region Account View / Methods
         private void LoadAccountsList()
         {
             accountsList.DataSource = InterfaceAccInfoDAO.Instance.GetAccountsList();
@@ -164,14 +431,112 @@ namespace CoffeeStore
         private void LoadTypeAccComboBox(ComboBox cb)
         {
             cb.DataSource = TypeAccDAO.Instance.GetListTypeAcc();
-            cb.DisplayMember= "TypeName";
+            cb.DisplayMember = "TypeName";
+        }
+        
+        private void AddAccount()
+        {
+            string userName = tBoxUserName.Text;
+            string displayName = tBoxDisplayName.Text;
+            int type = (cBoxTypeAcc.SelectedItem as TypeAcc).IdType;
+
+            List<string> list = AccountDAO.Instance.GetUserNameAccountsList();
+            foreach (string item in list)
+            {
+                if (userName == item)
+                {
+                    ShowMessError($"Đã tồn tại tài khoản với tên đăng nhập \"{userName}\"");
+                    return;
+                }
+            }
+
+            if (ShowMessQuestion($"Thêm mới tài khoản với tên đăng nhập \"{userName}\"?"))
+            {
+                if (AccountDAO.Instance.InsertAccount(userName, displayName, type))
+                {
+                    ShowMessSuccess($"Thêm tài khoản thành công với mật khẩu mặc định\nVui lòng đăng nhập vào tài khoản để đổi mật khẩu");
+                    LoadAccountsList();
+                }
+                else
+                {
+                    ShowMessError($"Đã xảy ra lỗi trong lúc thêm tài khoản");
+                }
+            }
+        }
+        private void RemoveAccount()
+        {
+            string userName = tBoxUserName.Text;
+            if (loginedAccount.UserName.Equals(userName))
+            {
+                ShowMessError("Không thể xóa tài khoản đang đăng nhập");
+                return;
+            }
+
+            if (ShowMessQuestion($"Bạn có chắc muốn xóa tài khoản \"{userName}\""))
+            {
+                if (AccountDAO.Instance.DeleteAccount(userName))
+                {
+                    ShowMessSuccess($"Xóa tài khoản thành công");
+                    LoadAccountsList();
+                }
+                else
+                {
+                    ShowMessError($"Đã xảy ra lỗi trong lúc xóa tài khoản");
+                }
+            }
+        }
+        private void EditAccountInfo()
+        {
+            string userName = tBoxUserName.Text;
+            string displayName = tBoxDisplayName.Text;
+            int type = (cBoxTypeAcc.SelectedItem as TypeAcc).IdType;
+
+            if (ShowMessQuestion($"Bạn muốn thay đổi thông tin tài khoản có tên đăng nhập \"{userName}\"?"))
+            {
+                if (AccountDAO.Instance.EditAccInfo(userName, displayName, type))
+                {
+                    ShowMessSuccess($"Sửa thông tin tài khoản thành công");
+                    LoadAccountsList();
+                }
+                else
+                {
+                    ShowMessError($"Đã xảy ra lỗi trong lúc sửa thông tin tài khoản");
+                }
+            }
+        }
+        private void ResetPass()
+        {
+            string userName = tBoxUserName.Text;
+            if (AccountDAO.Instance.ResetPass(userName))
+            {
+                MessageBox.Show($"Đặt lại mật khẩu thành mật khẩu mặc định thành công");
+            }
+            else
+                MessageBox.Show($"Đặt lại mật khẩu thất bại");
         }
         #endregion
+
+        #region ShowLog / Methods
+        private void ShowMessSuccess(string mess)
+        {
+            MessageBox.Show($"{mess}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        private void ShowMessError(string mess)
+        {
+            MessageBox.Show($"{mess}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        private bool ShowMessQuestion(string mess)
+        {
+            return MessageBox.Show($"{mess}", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+        }
         #endregion
 
+        #endregion
+
+
         #region events
-        
-        #region Doanh Thu
+
+        #region Doanh Thu / Events
         private void csBtnStatistical_Click(object sender, EventArgs e)
         {
             LoadListBillByDate(dtPickerFromDate.Value, dtPickerToDate.Value);
@@ -181,12 +546,11 @@ namespace CoffeeStore
             ShowRevenueDetails();
         }
         #endregion
-
         
-        #region FoodView
+        #region FoodView / Events
         private void btnViewFood_Click(object sender, EventArgs e)
         {
-            LoadListFoods();
+            LoadListFoods(GetOrderByFromRdBtn());
         }
 
         // TextChanged đồng nghĩa người dùng select sang món có id khác
@@ -218,74 +582,17 @@ namespace CoffeeStore
 
         private void btnAddFood_Click(object sender, EventArgs e)
         {
-            string foodName = tBoxFoodName.Text;
-            int categoryID = (cBoxFoodCategory.SelectedItem as Category).Id;
-            float foodPrice = Convert.ToSingle(nudFoodPrice.Value);
-            
-            List<InterfaceFoodInfo> list = InterfaceFoodInfoDAO.Instance.GetListInterfaceFoodInfo();
-            foreach (InterfaceFoodInfo item in list)
-            {
-                if (item.FoodName == foodName && item.CategoryName == (cBoxFoodCategory.SelectedItem as Category).Name)
-                {
-                    MessageBox.Show($"{foodName} đã tồn tại trong danh mục {item.CategoryName}");
-                    return;
-                }
-            }
-
-            if (FoodDAO.Instance.InsertFood(foodName, categoryID, foodPrice))
-            {
-                MessageBox.Show($"Thêm thành công {foodName} vào danh mục {(cBoxFoodCategory.SelectedItem as Category).Name}");
-
-                LoadListFoods();
-                if (insertFood != null)
-                    insertFood(this, new EventArgs());
-            }
-            else
-            {
-                MessageBox.Show($"Đã xảy ra lỗi khi thêm món");
-            }
+            AddFood();
         }
 
         private void btnEditFood_Click(object sender, EventArgs e)
         {
-            string foodName = tBoxFoodName.Text;
-            int categoryID = (cBoxFoodCategory.SelectedItem as Category).Id;
-            float foodPrice = Convert.ToSingle(nudFoodPrice.Value);
-            int foodID = Convert.ToInt32(tBoxFoodID.Text);
-
-            if (FoodDAO.Instance.EditFoodInfo(foodName, categoryID, foodPrice, foodID))
-            {
-                MessageBox.Show($"Thay đổi thông tin {foodName} thành công");
-
-                LoadListFoods();
-                if (editFood != null)
-                    editFood(this, new EventArgs());
-            }
-            else
-            {
-                MessageBox.Show($"Đã xảy ra lỗi khi thay đổi thông tin món");
-            }
+            EditFoodInfo();
         }
 
         private void btnRemoveFood_Click(object sender, EventArgs e)
         {
-            int foodID = Convert.ToInt32(tBoxFoodID.Text);
-
-            if (MessageBox.Show($"Xóa món {tBoxFoodName.Text} khỏi danh mục {(cBoxFoodCategory.SelectedItem as Category).Name}?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                if (FoodDAO.Instance.DeleteFood(foodID))
-                {
-                    MessageBox.Show($"Xóa món thành công");
-
-                    LoadListFoods();
-                    if (deleteFood != null)
-                        deleteFood(this, new EventArgs());
-                }
-                else
-                {
-                    MessageBox.Show($"Đã xảy ra lỗi khi xóa món");
-                }
-            }
+            RemoveFood();
         }
 
         private event EventHandler insertFood;
@@ -310,79 +617,40 @@ namespace CoffeeStore
 
         private void btnFindFood_Click(object sender, EventArgs e)
         {
-            listFoods.DataSource = FindFoodByName(tBoxFindFood.Text);
+            listFoods.DataSource = FindFoodByName(tBoxFindFood.Text, GetOrderByFromRdBtn());
         }
         private void tBoxFindFood_TextChanged(object sender, EventArgs e)
         {
-            listFoods.DataSource = FindFoodByName(tBoxFindFood.Text);
+            listFoods.DataSource = FindFoodByName(tBoxFindFood.Text, GetOrderByFromRdBtn());
         }
         #endregion
-
-
-        #region CategoryView
+        
+        #region Category View / Events
         private void btnViewCategory_Click(object sender, EventArgs e)
         {
             LoadCategoriesList();
         }
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
-            string categoryName = tBoxCategoryName.Text;
-
-            List<Category> list = CategoryDAO.Instance.GetListCategory();
-            foreach (Category item in list)
-            {
-                if (item.Name == categoryName)
-                {
-                    MessageBox.Show($"Đã tồn tại danh mục {categoryName}");
-                    return;
-                }
-            }
-
-            if (CategoryDAO.Instance.InsertCategory(categoryName))
-            {
-                MessageBox.Show($"Thêm thành công danh mục {categoryName}");
-                LoadCategoriesList();
-
-                if (insertCategory != null)
-                    insertCategory(this, new EventArgs());
-            }
-            else
-            {
-                MessageBox.Show("Đã xảy ra lỗi khi thêm danh mục món ăn");
-            }
+            AddCategory();
         }
         private void btnAdjustCategory_Click(object sender, EventArgs e)
         {
-            string categoryName = tBoxCategoryName.Text;
-            int categoryId = Convert.ToInt32(tBoxCategoryID.Text);
-            if (CategoryDAO.Instance.EditCategory(categoryName, categoryId))
-            {
-                MessageBox.Show($"Thay đổi thành công danh mục {categoryName}");
-                LoadCategoriesList();
-
-                if (editCategory != null)
-                    editCategory(this, new EventArgs());
-            }
-            else
-            {
-                MessageBox.Show("Đã xảy ra lỗi khi thay đổi thông tin danh mục món ăn");
-            }
+            EditCategoryInfo();
         }
         private void btnRemoveCategory_Click(object sender, EventArgs e)
         {
-            int categoryId = Convert.ToInt32(tBoxCategoryID.Text);
-            if (CategoryDAO.Instance.DeleteCategory(categoryId))
-            {
-                MessageBox.Show($"Xóa danh mục \"{tBoxCategoryName.Text}\" thành công");
-                LoadCategoriesList();
-
-                if (deleteCategory != null)
-                    deleteCategory(this,new EventArgs());
-            }
-            else
-            {
-                MessageBox.Show($"Vui lòng xóa các món ăn đang thuộc trong danh mục \"{tBoxCategoryName.Text}\" trước");
-            }
+            RemoveCategory();
+        }
+        private void tBoxCategoryID_TextChanged(object sender, EventArgs e)
+        {
+            btnAddCategory.Enabled = false;
+            btnAdjustCategory.Enabled = false;
+        }
+        private void tBoxCategoryName_TextChanged(object sender, EventArgs e)
+        {
+            btnAddCategory.Enabled = true;
+            btnAdjustCategory.Enabled = true;
         }
 
         private event EventHandler insertCategory;
@@ -405,7 +673,41 @@ namespace CoffeeStore
             remove { deleteCategory -= value; }
         }
         #endregion
+        
+        #region Table View / Events
+        private void btnAddTable_Click(object sender, EventArgs e)
+        {
+            AddTable();
+        }
+        private void btnAdjustTable_Click(object sender, EventArgs e)
+        {
+            EditTableInfo();
+        }
+        private void btnDeleteTable_Click(object sender, EventArgs e)
+        {
+            RemoveTable();
+        }
 
+        private event EventHandler insertTable;
+        private event EventHandler editTable;
+        private event EventHandler deleteTable;
+
+        public event EventHandler InsertTable
+        {
+            add { insertTable += value; }
+            remove { insertTable -= value; }
+        }
+        public event EventHandler EditTable
+        {
+            add { editTable += value; }
+            remove { editTable -= value; }
+        }
+        public event EventHandler DeleteTable
+        {
+            add { deleteTable += value; }
+            remove { deleteTable -= value; }
+        }
+        #endregion
 
         #region AccountView
         private void btnViewAcc_Click(object sender, EventArgs e)
@@ -439,67 +741,29 @@ namespace CoffeeStore
 
         private void btnAddAcc_Click(object sender, EventArgs e)
         {
-            string userName = tBoxUserName.Text;
-            string displayName = tBoxDisplayName.Text;
-            int type = (cBoxTypeAcc.SelectedItem as TypeAcc).IdType;
-
-            if (AccountDAO.Instance.InsertAccount(userName, displayName, type))
-            {
-                MessageBox.Show($"Thêm tài khoản thành công");
-                LoadAccountsList();
-            }
-            else
-            {
-                MessageBox.Show($"Đã xảy ra lỗi trong lúc thêm tài khoản");
-            }
+            AddAccount();
         }
 
         private void btnRemoveAcc_Click(object sender, EventArgs e)
         {
-            string userName = tBoxUserName.Text;
-            if (loginedAccount.UserName.Equals(userName))
-            {
-                MessageBox.Show("Không thể xóa tài khoản đang đăng nhập");
-                return;
-            }
-            if (MessageBox.Show($"Bạn có chắc muốn xóa tài khoản {userName}", "Thông báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                if (AccountDAO.Instance.DeleteAccount(userName))
-                {
-                    MessageBox.Show($"Xóa tài khoản thành công");
-                    LoadAccountsList();
-                }
-                else
-                {
-                    MessageBox.Show($"Đã xảy ra lỗi trong lúc xóa tài khoản");
-                }
-            }
+            RemoveAccount();
         }
 
         private void btnAdjustAcc_Click(object sender, EventArgs e)
         {
-            string userName = tBoxUserName.Text;
-            string displayName = tBoxDisplayName.Text;
-            int type = (cBoxTypeAcc.SelectedItem as TypeAcc).IdType;
-
-            if (AccountDAO.Instance.EditAccInfo(userName, displayName, type))
-            {
-                MessageBox.Show($"Sửa thông tin tài khoản thành công");
-                LoadAccountsList();
-            }
-            else
-            {
-                MessageBox.Show($"Đã xảy ra lỗi trong lúc sửa thông tin tài khoản");
-            }
+            EditAccountInfo();
         }
         private void btnResetPass_Click(object sender, EventArgs e)
         {
             ResetPass();
         }
-        #endregion
+
+
 
         #endregion
 
- 
+        #endregion
+
+        
     }
 }

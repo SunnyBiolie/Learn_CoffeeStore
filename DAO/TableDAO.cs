@@ -24,7 +24,7 @@ namespace CoffeeStore.DAO
         }
         private TableDAO() { }
 
-        public List<Table> LoadTableList()
+        public List<Table> GetTablesList()
         {
             List<Table> tables = new List<Table>();
 
@@ -37,6 +37,30 @@ namespace CoffeeStore.DAO
             }
 
             return tables;
+        }
+
+        public bool AddTable(string tableName)
+        {
+            string query = "insert Ban (TenBan) values ( @tableName )";
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { tableName });
+
+            return result > 0;
+        }
+        public bool EditTableInfo(int tableID, string tableName)
+        {
+            string query = "update Ban set TenBan = @tableName where ID = @tableID";
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { tableName, tableID });
+
+            return result > 0;
+        }
+        public bool RemoveTable(int tableID)
+        {
+            BillDAO.Instance.UpdateBillToDeletedTableByTableID(tableID);
+
+            string query = "delete Ban where ID = @tableID";
+            int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { tableID });
+
+            return result > 0;
         }
     }
 }

@@ -72,7 +72,7 @@ namespace CoffeeStore.DAO
 
         public bool DeleteFood(int foodID)
         {
-            BillInfoDAO.Instance.DeleteBillInfoByFoodID(foodID);
+            BillInfoDAO.Instance.UpdateBillInfoToDeletedFoodByFoodID(foodID);
 
             string query = $"Delete MonAn where ID = @foodID";
             int result = DataProvider.Instance.ExecuteNonQuery(query, new object[] { foodID });

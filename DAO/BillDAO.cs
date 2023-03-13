@@ -65,5 +65,10 @@ namespace CoffeeStore.DAO
             string query = $"exec USP_GetListBillByDate @NgayVao , @NgayRa";
             return DataProvider.Instance.ExecuteQuery(query, new object[] { dateCheckIn, dateCheckOut });
         }
+        public void UpdateBillToDeletedTableByTableID(int tableID)
+        {
+            string query = "update HoaDon set idBan = 11 where idBan = @tableID";
+            DataProvider.Instance.ExecuteNonQuery(query, new object[] { tableID });
+        }
     }
 }

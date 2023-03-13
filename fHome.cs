@@ -58,6 +58,7 @@ namespace CoffeeStore
             // Hiển thị trường Name của lớp Category trên comboBox
             cbCategory.DisplayMember = "Name";
         }
+        
         private void LoadFoodListByCategoryID(int categoryID)
         {
             List<Food> foods = FoodDAO.Instance.GetListFoodByCategoryID(categoryID);
@@ -77,9 +78,14 @@ namespace CoffeeStore
         {
             fLayoutTable.Controls.Clear();
 
-            List<Table> tableList = TableDAO.Instance.LoadTableList();
+            List<Table> tableList = TableDAO.Instance.GetTablesList();
             foreach (Table table in tableList)
             {
+                if(table.Name == "Bàn Đã Xóa")
+                {
+                    continue;
+                }
+
                 csButton btn = new csButton()
                 {
                     Width = TableDAO.tableWidth,
@@ -90,7 +96,7 @@ namespace CoffeeStore
                     TabStop = false,
                 };
                 btn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                btn.Text = table.Name + Environment.NewLine + table.Status;
+                btn.Text = table.Name + Environment.NewLine + $"({table.Status})";
                 // Tag của button thể hiện bàn = chính bàn được chọn
                 btn.Tag = table;
                 btn.Click += Btn_Click;
@@ -116,7 +122,7 @@ namespace CoffeeStore
         private void ReloadTable()
         {
             DataTable data = DataProvider.Instance.ExecuteQuery($"select TrangThai from Ban where ID = {(lViewBill.Tag as Table).Id}");
-            (lblCurrentTable.Tag as csButton).Text = (lViewBill.Tag as Table).Name + Environment.NewLine + data.Rows[0][0].ToString();
+            (lblCurrentTable.Tag as csButton).Text = (lViewBill.Tag as Table).Name + Environment.NewLine + $"({data.Rows[0][0].ToString()})";
             switch (data.Rows[0][0].ToString())
             {
                 case "Trống":
@@ -202,6 +208,10 @@ namespace CoffeeStore
             fAdmin.EditCategory += fAdmin_EditCategory;
             fAdmin.DeleteCategory += fAdmin_DeleteCategory;
 
+            fAdmin.InsertTable += fAdmin_InsertTable;
+            fAdmin.EditTable += fAdmin_EditTable;
+            fAdmin.DeleteTable += fAdmin_DeleteTable;
+
             fAdmin.ShowDialog();
         }
 
@@ -246,6 +256,19 @@ namespace CoffeeStore
         {
             LoadCategory();
             LoadFoodListByCategoryID((cbCategory.SelectedItem as Category).Id);
+        }
+        
+        private void fAdmin_InsertTable(object sender, EventArgs e)
+        {
+            LoadTables();
+        }
+        private void fAdmin_EditTable(object sender, EventArgs e)
+        {
+            LoadTables();
+        }
+        private void fAdmin_DeleteTable(object sender, EventArgs e)
+        {
+            LoadTables();
         }
         #endregion
 

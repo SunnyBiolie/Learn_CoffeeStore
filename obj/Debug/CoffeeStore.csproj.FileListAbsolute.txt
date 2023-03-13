@@ -72,6 +72,5 @@ D:\Code\C#\Windows Form\CoffeeStore\bin\Debug\pt\Microsoft.SqlServer.Types.resou
 D:\Code\C#\Windows Form\CoffeeStore\bin\Debug\ru\Microsoft.SqlServer.Types.resources.dll
 D:\Code\C#\Windows Form\CoffeeStore\bin\Debug\zh-Hans\Microsoft.SqlServer.Types.resources.dll
 D:\Code\C#\Windows Form\CoffeeStore\bin\Debug\zh-Hant\Microsoft.SqlServer.Types.resources.dll
-D:\Code\C#\Windows Form\CoffeeStore\obj\Debug\CoffeeStore.fReport.resources
 D:\Code\C#\Windows Form\CoffeeStore\obj\Debug\CoffeeStore.csproj.CopyComplete
 D:\Code\C#\Windows Form\CoffeeStore\obj\Debug\CoffeeStore.csControls.csTextBox.resources

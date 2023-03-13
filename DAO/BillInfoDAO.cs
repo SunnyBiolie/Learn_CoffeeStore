@@ -47,10 +47,10 @@ namespace CoffeeStore.DAO
             DataProvider.Instance.ExecuteNonQuery(query, new object[] { idBill, idFood, foodCount });
         }
 
-        public void DeleteBillInfoByFoodID(int foodID)
+        public void UpdateBillInfoToDeletedFoodByFoodID(int foodID)
         {
-            string query = $"delete ChiTietHoaDon where idMonAn = {foodID}";
-            DataProvider.Instance.ExecuteNonQuery(query);
+            string query = $"update ChiTietHoaDon set idMonAn = 20 where idMonAn = @foodID";
+            DataProvider.Instance.ExecuteNonQuery(query, new object[] { foodID });
         }
     }
 }

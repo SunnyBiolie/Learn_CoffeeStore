@@ -70,7 +70,6 @@ namespace CoffeeStore.DAO
         public bool DeleteCategory(int categoryId)
         {
             string query1 = $"select ma.TenMon from DanhMuc as dm, MonAn as ma where ma.idDM = dm.ID and dm.ID = {categoryId}";
-
             DataTable data = DataProvider.Instance.ExecuteQuery(query1);
 
             if (data.Rows.Count > 0)

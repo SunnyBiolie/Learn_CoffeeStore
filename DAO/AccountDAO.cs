@@ -45,6 +45,21 @@ namespace CoffeeStore.DAO
             return null;
         }
 
+        public List<string> GetUserNameAccountsList()
+        {
+            List<string> list = new List<string>();
+
+            string query = "select TenDangNhap from TaiKhoan";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+            foreach (DataRow row in data.Rows)
+            {
+                string userName = row[0].ToString();
+                list.Add(userName);
+            }
+
+            return list;
+        }
+
         /// <summary>
         /// Tên đăng nhập không thể được sửa
         /// Nếu mật khẩu mới bằng null hoặc rỗng thì sẽ không cập nhật mật khẩu

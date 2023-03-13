@@ -69,6 +69,7 @@ namespace CoffeeStore.DAO
             return list;
         }
     }
+    
     public class InterfaceRevenueDAO
     {
         private static InterfaceRevenueDAO instance;
@@ -115,11 +116,11 @@ namespace CoffeeStore.DAO
 
         private InterfaceFoodInfoDAO() { }
 
-        public List<InterfaceFoodInfo> GetListInterfaceFoodInfo()
+        public List<InterfaceFoodInfo> GetListInterfaceFoodInfo(string orderBy = "order by ID")
         {
             List<InterfaceFoodInfo> list = new List<InterfaceFoodInfo>();
 
-            string query = "select * from View_AdminFood";
+            string query = $"select * from View_AdminFood {orderBy}";
             DataTable data = DataProvider.Instance.ExecuteQuery(query);
 
             foreach(DataRow row in data.Rows)
@@ -136,12 +137,12 @@ namespace CoffeeStore.DAO
         /// </summary>
         /// <param name="approName"></param>
         /// <returns></returns>
-        public List<InterfaceFoodInfo> GetListFoodByName(string approName)
+        public List<InterfaceFoodInfo> GetListFoodByName(string approName, string orderBy = "order by ID")
         {
             List<InterfaceFoodInfo> list = new List<InterfaceFoodInfo>();
 
-            string query = $"select * from View_AdminFood where dbo.fuConvertToUnsign_STR(TenMon) like N'%' + dbo.fuConvertToUnsign_STR('{approName}') + '%'";
-            DataTable data = DataProvider.Instance.ExecuteQuery(query);
+            string query = $"select * from View_AdminFood where dbo.fuConvertToUnsign_STR(TenMon) like N'%' + dbo.fuConvertToUnsign_STR( @approName ) + '%' {orderBy}";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { approName });
 
             foreach (DataRow row in data.Rows)
             {

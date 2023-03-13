@@ -268,7 +268,7 @@
             this.tsmItemInfo});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1182, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1182, 26);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -277,7 +277,7 @@
             this.tsmItemAdmin.Enabled = false;
             this.tsmItemAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tsmItemAdmin.Name = "tsmItemAdmin";
-            this.tsmItemAdmin.Size = new System.Drawing.Size(63, 24);
+            this.tsmItemAdmin.Size = new System.Drawing.Size(63, 22);
             this.tsmItemAdmin.Text = "Admin";
             this.tsmItemAdmin.Click += new System.EventHandler(this.adminToolStripMenuItem_Click);
             // 
@@ -288,20 +288,20 @@
             this.đăngXuấtToolStripMenuItem});
             this.tsmItemInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tsmItemInfo.Name = "tsmItemInfo";
-            this.tsmItemInfo.Size = new System.Drawing.Size(83, 24);
+            this.tsmItemInfo.Size = new System.Drawing.Size(83, 22);
             this.tsmItemInfo.Text = "Thông tin";
             // 
             // thôngTinCáNhânToolStripMenuItem
             // 
             this.thôngTinCáNhânToolStripMenuItem.Name = "thôngTinCáNhânToolStripMenuItem";
-            this.thôngTinCáNhânToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.thôngTinCáNhânToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
             this.thôngTinCáNhânToolStripMenuItem.Text = "Thông tin cá nhân";
             this.thôngTinCáNhânToolStripMenuItem.Click += new System.EventHandler(this.thôngTinCáNhânToolStripMenuItem_Click);
             // 
             // đăngXuấtToolStripMenuItem
             // 
             this.đăngXuấtToolStripMenuItem.Name = "đăngXuấtToolStripMenuItem";
-            this.đăngXuấtToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.đăngXuấtToolStripMenuItem.Size = new System.Drawing.Size(207, 26);
             this.đăngXuấtToolStripMenuItem.Text = "Đăng xuất";
             this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click);
             // 
