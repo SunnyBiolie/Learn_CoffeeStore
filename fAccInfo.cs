@@ -37,7 +37,7 @@ namespace CoffeeStore
         private void ShowAccInfo(Account accLogined)
         {
             tBoxUserName.Texts = accLogined.UserName;
-            tBoxDisplayName.Texts = accLogined.DisplayName;
+            tBoxDisplayName.Texts = AccountDAO.Instance.GetDisplayNameByUserName(accLogined.UserName);
         }
 
         private void UpdateAccInfo()

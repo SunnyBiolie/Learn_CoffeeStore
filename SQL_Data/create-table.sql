@@ -172,25 +172,29 @@ begin
 end
 go
 
-create trigger UTG_DeleteBillInfo
-on ChiTietHoaDon for delete
-as
-begin
-		declare @idChiTietHoaDon int
-		declare @idHoaDon int
-		select @idChiTietHoaDon = id, @idHoaDon = idHoaDon from deleted
+--
+--	Chú ý sửa
+--
+--drop trigger UTG_DeleteBillInfo
+--create trigger UTG_DeleteBillInfo
+--on ChiTietHoaDon for delete
+--as
+--begin
+--		declare @idChiTietHoaDon int
+--		declare @idHoaDon int
+--		select @idChiTietHoaDon = id, @idHoaDon = idHoaDon from deleted
 
-		declare @idBan int
-		select @idBan = idBan from HoaDon where ID = @idHoaDon
+--		declare @idBan int
+--		select @idBan = idBan from HoaDon where ID = @idHoaDon
 
-		declare @soLuong int = 0
-		select @soLuong = count(*) from ChiTietHoaDon as cthd, HoaDon as hd where hd.ID = cthd.idHoaDon and hd.ID = @idHoaDon and hd.TrangThai = 0
+--		declare @soLuong int = 0
+--		select @soLuong = count(*) from ChiTietHoaDon as cthd, HoaDon as hd where hd.ID = cthd.idHoaDon and hd.ID = @idHoaDon and hd.TrangThai = 0
 
-		if (@soLuong = 0)
-			update Ban set TrangThai = N'Trống' where ID = @idBan
-			update HoaDon set TrangThai = 1 where ID = @idHoaDon
-end
-go
+--		if (@soLuong = 0)
+--			update Ban set TrangThai = N'Trống' where ID = @idBan
+--			update HoaDon set TrangThai = 1 where ID = @idHoaDon
+--end
+--go
 
 -- Tạo Views
 create view View_AdminFood

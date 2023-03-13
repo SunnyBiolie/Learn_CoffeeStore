@@ -108,5 +108,14 @@ namespace CoffeeStore.DAO
 
             return result > 0;
         }
+    
+        public string GetDisplayNameByUserName(string userName)
+        {
+            string displayName = "";
+            string query = "select TenHienThi from TaiKhoan where TenDangNhap = @userName";
+            DataTable data = DataProvider.Instance.ExecuteQuery(query, new object[] { userName});
+            displayName = data.Rows[0][0].ToString();
+            return displayName;
+        }
     }
 }
